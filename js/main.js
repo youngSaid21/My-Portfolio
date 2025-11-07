@@ -5,7 +5,7 @@ AOS.init({
 });
 
 // Typing Animation
-const texts = ['Big Data & AI Student', 'Aspirant Data Scientist'];
+const texts = ['Data & AI Student', 'Aspirant Data Scientist'];
 let count = 0;
 let index = 0;
 let currentText = '';
