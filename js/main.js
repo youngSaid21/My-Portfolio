@@ -1,215 +1,241 @@
-// Initialize AOS
+/* ==============================================
+   PORTFOLIO — MAIN JAVASCRIPT
+   Mamadou Saidou Cherif Diallo — AI Engineer
+   
+   Modules:
+   1. AOS Initialization
+   2. Typing Animation
+   3. Counter Animation (Career Highlights)
+   4. Navigation (scroll, active link, mobile)
+   5. Project Filtering
+   ============================================== */
+
+// ==============================================
+// 1. AOS INITIALIZATION
+// ==============================================
+
 AOS.init({
-    duration: 800,
-    once: true
+    duration: 700,
+    once: true,
+    offset: 80,
+    easing: 'ease-out-cubic'
 });
 
-// Typing Animation
-const texts = ['Data & AI Student', 'Aspirant Data Scientist'];
-let count = 0;
-let index = 0;
-let currentText = '';
-let letter = '';
+// ==============================================
+// 2. TYPING ANIMATION
+// ==============================================
 
-function type() {
-    if (count === texts.length) {
-        count = 0;
+(function initTypingAnimation() {
+    const typingElement = document.querySelector('.typing-text');
+    if (!typingElement) return;
+
+    const titles = [
+        'AI Engineer',
+        'Generative AI Engineer',
+        'LLM Systems Builder',
+        'Machine Learning Engineer'
+    ];
+
+    let titleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    const TYPE_SPEED = 80;
+    const DELETE_SPEED = 40;
+    const PAUSE_AFTER_TYPE = 2000;
+    const PAUSE_AFTER_DELETE = 400;
+
+    function type() {
+        const currentTitle = titles[titleIndex];
+
+        if (isDeleting) {
+            charIndex--;
+            typingElement.textContent = currentTitle.substring(0, charIndex);
+        } else {
+            charIndex++;
+            typingElement.textContent = currentTitle.substring(0, charIndex);
+        }
+
+        let delay = isDeleting ? DELETE_SPEED : TYPE_SPEED;
+
+        if (!isDeleting && charIndex === currentTitle.length) {
+            // Finished typing — pause then start deleting
+            delay = PAUSE_AFTER_TYPE;
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            // Finished deleting — move to next title
+            isDeleting = false;
+            titleIndex = (titleIndex + 1) % titles.length;
+            delay = PAUSE_AFTER_DELETE;
+        }
+
+        setTimeout(type, delay);
     }
-    currentText = texts[count];
-    letter = currentText.slice(0, ++index);
-    
-    document.querySelector('.typing-text').textContent = letter;
-    
-    if (letter.length === currentText.length) {
-        count++;
-        index = 0;
-        setTimeout(type, 2000);
-    } else {
-        setTimeout(type, 100);
+
+    type();
+})();
+
+// ==============================================
+// 3. COUNTER ANIMATION (Career Highlights)
+// ==============================================
+
+(function initCounterAnimation() {
+    const counters = document.querySelectorAll('[data-count]');
+    if (counters.length === 0) return;
+
+    const animateCounter = (element) => {
+        const target = parseInt(element.getAttribute('data-count'), 10);
+        const suffix = element.getAttribute('data-suffix') || '';
+        const duration = 1500;
+        const start = performance.now();
+
+        function update(currentTime) {
+            const elapsed = currentTime - start;
+            const progress = Math.min(elapsed / duration, 1);
+
+            // Ease-out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(eased * target);
+
+            element.textContent = current + suffix;
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            }
+        }
+
+        requestAnimationFrame(update);
+    };
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        { threshold: 0.5 }
+    );
+
+    counters.forEach((counter) => observer.observe(counter));
+})();
+
+// ==============================================
+// 4. NAVIGATION
+// ==============================================
+
+(function initNavigation() {
+    const navbar = document.getElementById('navbar');
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('nav-links');
+    const allNavLinks = document.querySelectorAll('.nav-link');
+
+    // --- Nav background on scroll ---
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        }, { passive: true });
     }
-}
 
-// Start typing animation
-type();
+    // --- Mobile menu toggle ---
+    if (burger && navLinks) {
+        burger.addEventListener('click', () => {
+            burger.classList.toggle('active');
+            navLinks.classList.toggle('nav-active');
+            document.body.style.overflow = navLinks.classList.contains('nav-active') ? 'hidden' : '';
+        });
 
-// Project Filtering
-const filterButtons = document.querySelectorAll('.filter-btn');
-const projectCards = document.querySelectorAll('.project-card');
+        // Close menu when a link is clicked
+        allNavLinks.forEach((link) => {
+            link.addEventListener('click', () => {
+                burger.classList.remove('active');
+                navLinks.classList.remove('nav-active');
+                document.body.style.overflow = '';
+            });
+        });
+    }
 
-filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Remove active class from all buttons
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        // Add active class to clicked button
-        button.classList.add('active');
-        
-        const filter = button.getAttribute('data-filter');
-        
-        projectCards.forEach(card => {
-            if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
+    // --- Smooth scrolling for anchor links ---
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href === '#') return; // Skip placeholder links
+
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
             }
         });
     });
-});
 
-// Mobile Navigation
-const burger = document.querySelector('.burger');
-const nav = document.querySelector('.nav-links');
-const navLinks = document.querySelectorAll('.nav-links li');
+    // --- Active nav link on scroll ---
+    if (allNavLinks.length > 0) {
+        const sections = document.querySelectorAll('section[id]');
 
-burger.addEventListener('click', () => {
-    nav.classList.toggle('nav-active');
-    
-    navLinks.forEach((link, index) => {
-        if (link.style.animation) {
-            link.style.animation = '';
-        } else {
-            link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-        }
-    });
-    
-    burger.classList.toggle('toggle');
-});
+        const sectionObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        allNavLinks.forEach((link) => {
+                            link.classList.toggle(
+                                'active',
+                                link.getAttribute('href') === `#${id}`
+                            );
+                        });
+                    }
+                });
+            },
+            {
+                rootMargin: '-20% 0px -60% 0px',
+                threshold: 0
+            }
+        );
 
-// Smooth Scrolling
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
+        sections.forEach((section) => sectionObserver.observe(section));
+    }
+})();
 
-// Form Submission
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        // Add your form submission logic here
-        alert('Message sent successfully!');
-        contactForm.reset();
-    });
-}
+// ==============================================
+// 5. PROJECT FILTERING
+// ==============================================
 
-// Image Gallery Modal (for project template)
-const galleryImages = document.querySelectorAll('.gallery-grid img');
-if (galleryImages.length > 0) {
-    galleryImages.forEach(image => {
-        image.addEventListener('click', () => {
-            // Add your image modal logic here
-        });
-    });
-}
-
-// Project Carousel
-function initProjectCarousel() {
-    const projectsGrid = document.querySelector('.projects-grid');
+(function initProjectFiltering() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
-    
-    function organizeProjects() {
-        // Clear existing content
-        projectsGrid.innerHTML = '';
-        
-        // Get active filter
-        const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-        
-        // Get filtered projects
-        let filteredProjects = Array.from(projectCards).filter(card => {
-            return activeFilter === 'all' || card.getAttribute('data-category') === activeFilter;
-        });
-        
-        if (filteredProjects.length <= 4) {
-            // If 4 or fewer projects, display them normally
-            const projectSlide = document.createElement('div');
-            projectSlide.className = 'project-slide';
-            filteredProjects.forEach(project => projectSlide.appendChild(project.cloneNode(true)));
-            projectsGrid.appendChild(projectSlide);
-        } else {
-            // Create carousel for more than 4 projects
-            const slides = Math.ceil(filteredProjects.length / 4);
-            let currentSlide = 0;
-            
-            // Create carousel container
-            const carouselContainer = document.createElement('div');
-            carouselContainer.className = 'carousel-container';
-            
-            // Create slides
-            for (let i = 0; i < slides; i++) {
-                const slideProjects = filteredProjects.slice(i * 4, (i + 1) * 4);
-                const projectSlide = document.createElement('div');
-                projectSlide.className = 'project-slide';
-                slideProjects.forEach(project => projectSlide.appendChild(project.cloneNode(true)));
-                carouselContainer.appendChild(projectSlide);
-            }
-            
-            projectsGrid.appendChild(carouselContainer);
-            
-            // Create carousel controls
-            const controls = document.createElement('div');
-            controls.className = 'carousel-controls';
-            controls.innerHTML = `
-                <button class="carousel-btn prev"><i class="fas fa-chevron-left"></i></button>
-                <div class="carousel-dots"></div>
-                <button class="carousel-btn next"><i class="fas fa-chevron-right"></i></button>
-            `;
-            
-            // Create dots
-            const dotsContainer = controls.querySelector('.carousel-dots');
-            for (let i = 0; i < slides; i++) {
-                const dot = document.createElement('button');
-                dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
-                dot.addEventListener('click', () => goToSlide(i));
-                dotsContainer.appendChild(dot);
-            }
-            
-            projectsGrid.appendChild(controls);
-            
-            function updateCarousel() {
-                const allSlides = carouselContainer.querySelectorAll('.project-slide');
-                carouselContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
-                
-                // Update dots
-                const dots = controls.querySelectorAll('.carousel-dot');
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === currentSlide);
-                });
-            }
-            
-            // Add event listeners for controls
-            controls.querySelector('.prev').addEventListener('click', () => {
-                currentSlide = (currentSlide - 1 + slides) % slides;
-                updateCarousel();
-            });
-            
-            controls.querySelector('.next').addEventListener('click', () => {
-                currentSlide = (currentSlide + 1) % slides;
-                updateCarousel();
-            });
-            
-            function goToSlide(slideIndex) {
-                currentSlide = slideIndex;
-                updateCarousel();
-            }
-        }
-    }
-    
-    // Initialize carousel
-    organizeProjects();
-    
-    // Add event listeners to filter buttons
-    filterButtons.forEach(button => {
+
+    if (filterButtons.length === 0 || projectCards.length === 0) return;
+
+    filterButtons.forEach((button) => {
         button.addEventListener('click', () => {
-            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Update active button
+            filterButtons.forEach((btn) => btn.classList.remove('active'));
             button.classList.add('active');
-            organizeProjects();
+
+            const filter = button.getAttribute('data-filter');
+
+            // Filter cards with animation
+            projectCards.forEach((card) => {
+                const matches = filter === 'all' || card.getAttribute('data-category') === filter;
+                
+                if (matches) {
+                    card.classList.remove('hidden');
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(10px)';
+                    
+                    // Trigger reflow for animation
+                    void card.offsetWidth;
+                    
+                    card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
         });
     });
-}
-
-// Initialize carousel when DOM is loaded
-document.addEventListener('DOMContentLoaded', initProjectCarousel);
+})();
