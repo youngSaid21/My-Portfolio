@@ -578,6 +578,7 @@ nav.scrolled {
 .about-text p {
     margin-bottom: 1.5rem;
     color: var(--text-secondary);
+    text-align: justify;
 }
 
 .about-text p:last-child {
@@ -590,6 +591,55 @@ nav.scrolled {
     font-style: italic;
     border-left: 3px solid var(--primary);
     padding-left: 1.25rem;
+}
+
+.about-languages {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+}
+
+.about-languages-title {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.85rem;
+}
+
+.about-languages-title i {
+    color: var(--primary);
+    margin-right: 0.4rem;
+}
+
+.about-languages-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.about-lang-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    padding: 0.45rem 1rem;
+    border-radius: 50px;
+    transition: var(--transition);
+}
+
+.about-lang-item i {
+    color: var(--primary);
+    font-size: 0.95rem;
+}
+
+.about-lang-item:hover {
+    border-color: var(--primary);
+    color: var(--text-primary);
+    background: rgba(0, 255, 157, 0.06);
 }
 
 /* ==============================================
@@ -1466,9 +1516,9 @@ nav.scrolled {
 
 .awards-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
-    max-width: 1150px;
+    max-width: 850px;
     margin: 0 auto;
 }
 
@@ -1507,7 +1557,25 @@ nav.scrolled {
     font-size: 1.2rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
+}
+
+.award-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--primary);
+    background: rgba(0, 255, 157, 0.08);
+    border: 1px solid rgba(0, 255, 157, 0.2);
+    padding: 0.2rem 0.6rem;
+    border-radius: 50px;
+    margin-bottom: 0.6rem;
+}
+
+.award-date i {
+    font-size: 0.78rem;
 }
 
 .award-content p {
