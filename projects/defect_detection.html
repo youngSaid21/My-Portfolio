@@ -817,14 +817,14 @@
                     <!-- In-line Figures for Dataset -->
                     <div class="figure-grid-dual">
                         <div class="figure-box">
-                            <img src="../images/defect-detection/binary/Dataset Distribution.png" alt="Dataset Distribution">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/binary/Dataset Distribution.png" alt="Dataset Distribution">
                             <div class="figure-caption">
                                 <i class="fas fa-chart-pie"></i>
                                 <span><strong>Figure 1 (Class Imbalance Analysis):</strong> The histogram highlights the class distribution asymmetry (229 Good vs 63 Bad samples). This disparity necessitates class-weighted loss functions during optimization to prevent model bias toward majority safe classes.</span>
                             </div>
                         </div>
                         <div class="figure-box">
-                            <img src="../images/defect-detection/binary/Dataset Samples.png" alt="Dataset Samples">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/binary/Dataset Samples.png" alt="Dataset Samples">
                             <div class="figure-caption">
                                 <i class="fas fa-images"></i>
                                 <span><strong>Figure 2 (Visual Anomaly Inspection):</strong> Sample grid illustrating subtle visual variations between healthy glass bottles and defective units exhibiting surface cracks and contaminations.</span>
@@ -833,7 +833,7 @@
                     </div>
 
                     <div class="figure-box">
-                        <img src="../images/defect-detection/multi-class/1_grid_alignment_test_vs_gt.png" alt="Test Samples vs Ground Truth Alignment">
+                        <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/1_grid_alignment_test_vs_gt.png" alt="Test Samples vs Ground Truth Alignment">
                         <div class="figure-caption">
                             <i class="fas fa-align-center"></i>
                             <span><strong>Figure 3 (Ground Truth Segmentation Alignment):</strong> A 2x4 grid comparing test anomaly samples directly against pixel-level Ground Truth annotations. This spatial pairing establishes the baseline for downstream IoU validation.</span>
@@ -857,7 +857,7 @@
 
                     <!-- In-line Figure DataLoader Inspection -->
                     <div class="figure-box">
-                        <img src="../images/defect-detection/multi-class/02_dataloader_batch_inspection.png" alt="PyTorch DataLoader Inspection Batch">
+                        <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/02_dataloader_batch_inspection.png" alt="PyTorch DataLoader Inspection Batch">
                         <div class="figure-caption">
                             <i class="fas fa-cubes"></i>
                             <span><strong>Figure 4 (DataLoader Batch Verification):</strong> Visual batch inspection confirming tensor shapes (<code>[B, 3, 224, 224]</code>), data augmentations, and normalization transformations prior to model forward passes.</span>
@@ -1250,14 +1250,14 @@
 
                             <div class="figure-grid-dual">
                                 <div class="figure-box">
-                                    <img src="../images/defect-detection/binary/CNN Training Curves.png" alt="CNN Training Curves">
+                                    <img loading="lazy" decoding="async" src="../images/defect-detection/binary/CNN Training Curves.png" alt="CNN Training Curves">
                                     <div class="figure-caption">
                                         <i class="fas fa-chart-line"></i>
                                         <span><strong>Figure 5 (CNN Binary Training Curves):</strong> Figure 5 illustrates the convergence trajectory of the custom CNN over 20 epochs. Training loss decreases steadily, but validation accuracy plateaus around epoch 12, demonstrating the limits of training custom convolutional filters from scratch on small datasets.</span>
                                     </div>
                                 </div>
                                 <div class="figure-box">
-                                    <img src="../images/defect-detection/binary/CNN Confusion Matrix.png" alt="CNN Confusion Matrix">
+                                    <img loading="lazy" decoding="async" src="../images/defect-detection/binary/CNN Confusion Matrix.png" alt="CNN Confusion Matrix">
                                     <div class="figure-caption">
                                         <i class="fas fa-th"></i>
                                         <span><strong>Figure 6 (CNN Binary Confusion Matrix):</strong> Figure 6 displays the evaluation matrix on 36 test samples. The model achieves 97.2% accuracy (35/36 correct), with a single false positive misclassification highlighting minor decision boundary blurriness.</span>
@@ -1265,7 +1265,7 @@
                                 </div>
                             </div>
                             <div class="figure-box">
-                                <img src="../images/defect-detection/binary/CNN Predictions.png" alt="CNN Predictions">
+                                <img loading="lazy" decoding="async" src="../images/defect-detection/binary/CNN Predictions.png" alt="CNN Predictions">
                                 <div class="figure-caption">
                                     <i class="fas fa-tasks"></i>
                                     <span><strong>Figure 7 (CNN Binary Prediction Grid):</strong> Figure 7 shows predicted class probabilities on binary test samples, verifying that predictions maintain high confidence on obvious defect-free and defective bottles.</span>
@@ -1285,14 +1285,14 @@
 
                             <div class="figure-grid-dual">
                                 <div class="figure-box">
-                                    <img src="../images/defect-detection/binary/ResNet50 Training Curves (loss).png" alt="ResNet50 Loss Curve">
+                                    <img loading="lazy" decoding="async" src="../images/defect-detection/binary/ResNet50 Training Curves (loss).png" alt="ResNet50 Loss Curve">
                                     <div class="figure-caption">
                                         <i class="fas fa-chart-line"></i>
                                         <span><strong>Figure 8 (ResNet50 Binary Loss Trajectory):</strong> Figure 8 illustrates the rapid convergence achieved through transfer learning. Training loss decreases smoothly without instability, highlighting the robustness of pre-trained ImageNet representations on limited industrial datasets.</span>
                                     </div>
                                 </div>
                                 <div class="figure-box">
-                                    <img src="../images/defect-detection/binary/ResNet50 Training Curves (Accuracy).png" alt="ResNet50 Accuracy Curve">
+                                    <img loading="lazy" decoding="async" src="../images/defect-detection/binary/ResNet50 Training Curves (Accuracy).png" alt="ResNet50 Accuracy Curve">
                                     <div class="figure-caption">
                                         <i class="fas fa-chart-line"></i>
                                         <span><strong>Figure 9 (ResNet50 Binary Accuracy Trajectory):</strong> Figure 9 tracks validation accuracy reaching 100.0% by epoch 15, confirming rapid convergence enabled by pre-trained residual feature extractors.</span>
@@ -1302,14 +1302,14 @@
 
                             <div class="figure-grid-dual">
                                 <div class="figure-box">
-                                    <img src="../images/defect-detection/binary/ResNet50 Confusion Matrix.png" alt="ResNet50 Confusion Matrix">
+                                    <img loading="lazy" decoding="async" src="../images/defect-detection/binary/ResNet50 Confusion Matrix.png" alt="ResNet50 Confusion Matrix">
                                     <div class="figure-caption">
                                         <i class="fas fa-check-double"></i>
                                         <span><strong>Figure 10 (ResNet50 Binary Confusion Matrix):</strong> Figure 10 confirms perfect 36/36 test evaluation, demonstrating zero false positive or false negative classifications.</span>
                                     </div>
                                 </div>
                                 <div class="figure-box">
-                                    <img src="../images/defect-detection/binary/ResNet50 Predictions.png" alt="ResNet50 Predictions">
+                                    <img loading="lazy" decoding="async" src="../images/defect-detection/binary/ResNet50 Predictions.png" alt="ResNet50 Predictions">
                                     <div class="figure-caption">
                                         <i class="fas fa-magic"></i>
                                         <span><strong>Figure 11 (ResNet50 Binary Prediction Visuals):</strong> Figure 11 displays qualitative predictions showing 100% confidence scores across healthy and defective test bottle samples.</span>
@@ -1319,14 +1319,14 @@
 
                             <div class="figure-grid-dual">
                                 <div class="figure-box">
-                                    <img src="../images/defect-detection/binary/Metrics Comparison (Accuracy).png" alt="Metrics Comparison">
+                                    <img loading="lazy" decoding="async" src="../images/defect-detection/binary/Metrics Comparison (Accuracy).png" alt="Metrics Comparison">
                                     <div class="figure-caption">
                                         <i class="fas fa-balance-scale"></i>
                                         <span><strong>Figure 12 (Binary Accuracy Comparison Bar Chart):</strong> Figure 12 contrasts the performance gain between the Custom CNN (97.2%) and ResNet50 Transfer Learning (100.0%), underscoring the superiority of pre-trained representations.</span>
                                     </div>
                                 </div>
                                 <div class="figure-box">
-                                    <img src="../images/defect-detection/binary/Model Comparison (Matrix table).png" alt="Model Comparison Table">
+                                    <img loading="lazy" decoding="async" src="../images/defect-detection/binary/Model Comparison (Matrix table).png" alt="Model Comparison Table">
                                     <div class="figure-caption">
                                         <i class="fas fa-table"></i>
                                         <span><strong>Figure 13 (Binary Metrics Summary Table):</strong> Figure 13 synthesizes Precision, Recall, and F1-Score metrics across binary models, confirming optimal classification performance on the test set.</span>
@@ -1354,14 +1354,14 @@
 
                             <div class="figure-grid-dual">
                                 <div class="figure-box">
-                                    <img src="../images/defect-detection/multi-class/03_cnn_simple_confusion_curves.png" alt="CNN Multi-Class Curves">
+                                    <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/03_cnn_simple_confusion_curves.png" alt="CNN Multi-Class Curves">
                                     <div class="figure-caption">
                                         <i class="fas fa-chart-line"></i>
                                         <span><strong>Figure 14 (CNN Multi-Class Learning Curves):</strong> Figure 14 illustrates severe train/validation divergence. Training loss decays while validation loss explodes, proving that 39 images are insufficient to train random weights from scratch.</span>
                                     </div>
                                 </div>
                                 <div class="figure-box">
-                                    <img src="../images/defect-detection/multi-class/04_cnn_simple_confusion_matrix.png" alt="CNN Multi-Class Confusion Matrix">
+                                    <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/04_cnn_simple_confusion_matrix.png" alt="CNN Multi-Class Confusion Matrix">
                                     <div class="figure-caption">
                                         <i class="fas fa-times-circle"></i>
                                         <span><strong>Figure 15 (CNN Multi-Class Confusion Matrix):</strong> Figure 15 reveals severe misclassifications across defect categories, yielding a 33.3% accuracy baseline equivalent to random selection.</span>
@@ -1369,7 +1369,7 @@
                                 </div>
                             </div>
                             <div class="figure-box">
-                                <img src="../images/defect-detection/multi-class/05_cnn_simple_test_predictions.png" alt="CNN Multi-Class Predictions">
+                                <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/05_cnn_simple_test_predictions.png" alt="CNN Multi-Class Predictions">
                                 <div class="figure-caption">
                                     <i class="fas fa-tasks"></i>
                                     <span><strong>Figure 16 (CNN Multi-Class Test Predictions):</strong> Figure 16 highlights widespread prediction errors across test samples, confirming the architectural incapacity of uninitialized CNNs on ultra-small datasets.</span>
@@ -1386,14 +1386,14 @@
 
                             <div class="figure-grid-dual">
                                 <div class="figure-box">
-                                    <img src="../images/defect-detection/multi-class/06_resnet_feature_extraction_curves.png" alt="ResNet FE Curves">
+                                    <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/06_resnet_feature_extraction_curves.png" alt="ResNet FE Curves">
                                     <div class="figure-caption">
                                         <i class="fas fa-chart-line"></i>
                                         <span><strong>Figure 17 (ResNet FE Curves):</strong> Figure 17 shows stabilized validation loss curves resulting from backbone freezing, preventing overfitting while optimizing the classification head.</span>
                                     </div>
                                 </div>
                                 <div class="figure-box">
-                                    <img src="../images/defect-detection/multi-class/07_resnet_feature_extraction_confusion_matrix.png" alt="ResNet FE Confusion Matrix">
+                                    <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/07_resnet_feature_extraction_confusion_matrix.png" alt="ResNet FE Confusion Matrix">
                                     <div class="figure-caption">
                                         <i class="fas fa-forward"></i>
                                         <span><strong>Figure 18 (ResNet FE Confusion Matrix):</strong> Figure 18 demonstrates a significant accuracy increase to 66.7%, with confusion matrix diagonal elements showing strong category separation.</span>
@@ -1401,7 +1401,7 @@
                                 </div>
                             </div>
                             <div class="figure-box">
-                                <img src="../images/defect-detection/multi-class/08_resnet_feature_extraction_test_predictions.png" alt="ResNet FE Predictions">
+                                <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/08_resnet_feature_extraction_test_predictions.png" alt="ResNet FE Predictions">
                                 <div class="figure-caption">
                                     <i class="fas fa-check"></i>
                                     <span><strong>Figure 19 (ResNet FE Test Predictions):</strong> Figure 19 displays test predictions showing correct identification on major defect categories, though minor confusion persists on subtle micro-cracks.</span>
@@ -1418,14 +1418,14 @@
 
                             <div class="figure-grid-dual">
                                 <div class="figure-box">
-                                    <img src="../images/defect-detection/multi-class/10_resnet_finetuning_curves.png" alt="ResNet FT Curves">
+                                    <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/10_resnet_finetuning_curves.png" alt="ResNet FT Curves">
                                     <div class="figure-caption">
                                         <i class="fas fa-chart-line"></i>
                                         <span><strong>Figure 20 (ResNet FT Curves):</strong> Figure 20 demonstrates optimal loss convergence achieved through low-learning-rate fine-tuning, allowing deep layers to adapt without destroying ImageNet features.</span>
                                     </div>
                                 </div>
                                 <div class="figure-box">
-                                    <img src="../images/defect-detection/multi-class/09_resnet_finetuning_confusion_matrix.png" alt="ResNet FT Confusion Matrix">
+                                    <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/09_resnet_finetuning_confusion_matrix.png" alt="ResNet FT Confusion Matrix">
                                     <div class="figure-caption">
                                         <i class="fas fa-trophy"></i>
                                         <span><strong>Figure 21 (ResNet FT Confusion Matrix):</strong> Figure 21 displays the peak 75.0% multi-class confusion matrix, confirming improved discrimination on complex micro-fracture glass defects.</span>
@@ -1433,7 +1433,7 @@
                                 </div>
                             </div>
                             <div class="figure-box">
-                                <img src="../images/defect-detection/multi-class/11_resnet_finetuning_test_predictions.png" alt="ResNet FT Predictions">
+                                <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/11_resnet_finetuning_test_predictions.png" alt="ResNet FT Predictions">
                                 <div class="figure-caption">
                                     <i class="fas fa-magic"></i>
                                     <span><strong>Figure 22 (ResNet FT Final Predictions):</strong> Figure 22 illustrates final test set prediction grids, demonstrating accurate multi-class anomaly identification on test bottles.</span>
@@ -1534,7 +1534,7 @@
                     </p>
 
                     <div class="figure-box" style="border: 2px solid var(--primary); box-shadow: var(--shadow-glow);">
-                        <img src="../images/defect-detection/multi-class/12_gradcam_heatmaps_iou_overlay.png" alt="Grad-CAM Heatmaps & IoU Overlay">
+                        <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/12_gradcam_heatmaps_iou_overlay.png" alt="Grad-CAM Heatmaps & IoU Overlay">
                         <div class="figure-caption" style="background: rgba(0, 255, 157, 0.08);">
                             <i class="fas fa-star" style="color: var(--primary);"></i>
                             <span><strong>Figure 23 (Grad-CAM Saliency & IoU Spatial Overlay):</strong> Figure 23 showcases Grad-CAM activation heatmaps overlaid with green Ground Truth contours and numerical IoU scores, proving that activation hotspots coincide spatially with physical defect locations.</span>
@@ -1659,47 +1659,47 @@
                     </h3>
                     <div class="gallery-container" style="margin-bottom: 3rem;">
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/binary/Dataset Distribution.png" alt="Dataset Distribution">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/binary/Dataset Distribution.png" alt="Dataset Distribution">
                             <div class="gallery-item-title"><i class="fas fa-chart-pie"></i> Dataset Class Imbalance</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/binary/Dataset Samples.png" alt="Dataset Samples">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/binary/Dataset Samples.png" alt="Dataset Samples">
                             <div class="gallery-item-title"><i class="fas fa-images"></i> Component Image Samples</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/binary/CNN Training Curves.png" alt="CNN Training Curves">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/binary/CNN Training Curves.png" alt="CNN Training Curves">
                             <div class="gallery-item-title"><i class="fas fa-chart-line"></i> CNN Binary Training Curves</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/binary/CNN Confusion Matrix.png" alt="CNN Confusion Matrix">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/binary/CNN Confusion Matrix.png" alt="CNN Confusion Matrix">
                             <div class="gallery-item-title"><i class="fas fa-th"></i> CNN Binary Matrix (97.2%)</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/binary/CNN Predictions.png" alt="CNN Predictions">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/binary/CNN Predictions.png" alt="CNN Predictions">
                             <div class="gallery-item-title"><i class="fas fa-tasks"></i> CNN Binary Predictions</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/binary/ResNet50 Training Curves (loss).png" alt="ResNet50 Loss Curve">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/binary/ResNet50 Training Curves (loss).png" alt="ResNet50 Loss Curve">
                             <div class="gallery-item-title"><i class="fas fa-chart-line"></i> ResNet50 Binary Loss Curve</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/binary/ResNet50 Training Curves (Accuracy).png" alt="ResNet50 Accuracy Curve">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/binary/ResNet50 Training Curves (Accuracy).png" alt="ResNet50 Accuracy Curve">
                             <div class="gallery-item-title"><i class="fas fa-chart-line"></i> ResNet50 Binary Acc Curve</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/binary/ResNet50 Confusion Matrix.png" alt="ResNet50 Confusion Matrix">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/binary/ResNet50 Confusion Matrix.png" alt="ResNet50 Confusion Matrix">
                             <div class="gallery-item-title"><i class="fas fa-check-double"></i> ResNet50 Binary Matrix (100%)</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/binary/ResNet50 Predictions.png" alt="ResNet50 Predictions">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/binary/ResNet50 Predictions.png" alt="ResNet50 Predictions">
                             <div class="gallery-item-title"><i class="fas fa-magic"></i> ResNet50 Binary Predictions</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/binary/Metrics Comparison (Accuracy).png" alt="Metrics Comparison">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/binary/Metrics Comparison (Accuracy).png" alt="Metrics Comparison">
                             <div class="gallery-item-title"><i class="fas fa-balance-scale"></i> Accuracy Comparison Bar Chart</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/binary/Model Comparison (Matrix table).png" alt="Model Comparison Matrix Table">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/binary/Model Comparison (Matrix table).png" alt="Model Comparison Matrix Table">
                             <div class="gallery-item-title"><i class="fas fa-table"></i> Complete Metrics Summary Table</div>
                         </div>
                     </div>
@@ -1710,51 +1710,51 @@
                     </h3>
                     <div class="gallery-container">
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/multi-class/12_gradcam_heatmaps_iou_overlay.png" alt="12 Grad-CAM Heatmaps IoU Overlay">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/12_gradcam_heatmaps_iou_overlay.png" alt="12 Grad-CAM Heatmaps IoU Overlay">
                             <div class="gallery-item-title"><i class="fas fa-star"></i> 12. Grad-CAM & IoU Overlays</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/multi-class/1_grid_alignment_test_vs_gt.png" alt="1 Grid Alignment Test vs GT">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/1_grid_alignment_test_vs_gt.png" alt="1 Grid Alignment Test vs GT">
                             <div class="gallery-item-title"><i class="fas fa-align-center"></i> 01. Test vs Ground Truth Grid</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/multi-class/02_dataloader_batch_inspection.png" alt="02 DataLoader Batch Inspection">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/02_dataloader_batch_inspection.png" alt="02 DataLoader Batch Inspection">
                             <div class="gallery-item-title"><i class="fas fa-cubes"></i> 02. DataLoader Batch Inspector</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/multi-class/03_cnn_simple_confusion_curves.png" alt="03 CNN Simple Curves">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/03_cnn_simple_confusion_curves.png" alt="03 CNN Simple Curves">
                             <div class="gallery-item-title"><i class="fas fa-chart-line"></i> 03. CNN Multi-Class Curves</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/multi-class/04_cnn_simple_confusion_matrix.png" alt="04 CNN Simple Confusion Matrix">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/04_cnn_simple_confusion_matrix.png" alt="04 CNN Simple Confusion Matrix">
                             <div class="gallery-item-title"><i class="fas fa-times-circle"></i> 04. CNN Multi-Class Matrix (33.3%)</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/multi-class/05_cnn_simple_test_predictions.png" alt="05 CNN Simple Test Predictions">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/05_cnn_simple_test_predictions.png" alt="05 CNN Simple Test Predictions">
                             <div class="gallery-item-title"><i class="fas fa-tasks"></i> 05. CNN Test Predictions</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/multi-class/06_resnet_feature_extraction_curves.png" alt="06 ResNet Feature Extraction Curves">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/06_resnet_feature_extraction_curves.png" alt="06 ResNet Feature Extraction Curves">
                             <div class="gallery-item-title"><i class="fas fa-chart-line"></i> 06. ResNet FE Curves</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/multi-class/07_resnet_feature_extraction_confusion_matrix.png" alt="07 ResNet FE Confusion Matrix">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/07_resnet_feature_extraction_confusion_matrix.png" alt="07 ResNet FE Confusion Matrix">
                             <div class="gallery-item-title"><i class="fas fa-forward"></i> 07. ResNet FE Matrix (66.7%)</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/multi-class/08_resnet_feature_extraction_test_predictions.png" alt="08 ResNet FE Test Predictions">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/08_resnet_feature_extraction_test_predictions.png" alt="08 ResNet FE Test Predictions">
                             <div class="gallery-item-title"><i class="fas fa-check"></i> 08. ResNet FE Predictions</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/multi-class/10_resnet_finetuning_curves.png" alt="10 ResNet Fine-Tuning Curves">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/10_resnet_finetuning_curves.png" alt="10 ResNet Fine-Tuning Curves">
                             <div class="gallery-item-title"><i class="fas fa-chart-line"></i> 10. ResNet FT Curves</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/multi-class/09_resnet_finetuning_confusion_matrix.png" alt="09 ResNet Fine-Tuning Confusion Matrix">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/09_resnet_finetuning_confusion_matrix.png" alt="09 ResNet Fine-Tuning Confusion Matrix">
                             <div class="gallery-item-title"><i class="fas fa-trophy"></i> 09. ResNet FT Matrix (75.0%)</div>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/defect-detection/multi-class/11_resnet_finetuning_test_predictions.png" alt="11 ResNet Fine-Tuning Predictions">
+                            <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/11_resnet_finetuning_test_predictions.png" alt="11 ResNet Fine-Tuning Predictions">
                             <div class="gallery-item-title"><i class="fas fa-magic"></i> 11. ResNet FT Predictions</div>
                         </div>
                     </div>
