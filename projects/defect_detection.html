@@ -3,63 +3,1809 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Industrial Defect Detection — Project Details</title>
+    <title>Comparative Study of Deep Learning Approaches for Industrial Visual Inspection — AI Case Study</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        /* Modern Case Study Styling System */
+        .project-details {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 6rem;
+        }
+
+        .project-header-hero {
+            text-align: center;
+            padding: 3.5rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.05) 0%, rgba(10, 10, 10, 0.85) 100%);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            margin-bottom: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-header-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 157, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .project-header-hero h1 {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .project-header-hero .hero-badge-strip {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .hero-pill {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            padding: 0.4rem 1.1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-pill i {
+            color: var(--primary);
+        }
+
+        /* Two-Column Layout & Sticky TOC Sidebar */
+        .case-study-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 2.5rem;
+            align-items: start;
+            margin-top: 1rem;
+        }
+
+        .toc-sidebar {
+            position: sticky;
+            top: 90px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem 1rem;
+            max-height: calc(100vh - 110px);
+            overflow-y: auto;
+            box-shadow: var(--shadow-sm);
+            z-index: 10;
+        }
+
+        .toc-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .toc-sidebar::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        .toc-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.85rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toc-title i {
+            color: var(--primary);
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 0.35rem 0.65rem;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 5px;
+            border-left: 2px solid transparent;
+            transition: var(--transition);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .toc-link:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .toc-link.active {
+            color: var(--primary);
+            background: rgba(0, 255, 157, 0.06);
+            border-left-color: var(--primary);
+            font-weight: 600;
+        }
+
+        @media (max-width: 1024px) {
+            .case-study-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .toc-sidebar {
+                position: relative;
+                top: 0;
+                max-height: none;
+                margin-bottom: 2rem;
+            }
+
+            .toc-link {
+                white-space: normal;
+            }
+        }
+
+        .section-block {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            transition: var(--transition);
+            scroll-margin-top: 100px;
+        }
+
+        .section-block:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-block h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-block h2 i {
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+
+        .lead-text {
+            font-size: 1.08rem;
+            line-height: 1.85;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        /* Representative Highlights Grid */
+        .highlights-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1rem;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.25rem 1rem;
+            text-align: center;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .metric-card:hover {
+            border-color: var(--primary);
+            background: rgba(0, 255, 157, 0.04);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .metric-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.3rem;
+        }
+
+        .metric-value {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        /* Architecture Flow Visuals */
+        .arch-pipeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .arch-step {
+            background: rgba(18, 18, 18, 0.9);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            position: relative;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .arch-step:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .arch-step-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .arch-step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--primary-dim);
+            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(0, 255, 157, 0.3);
+        }
+
+        .arch-step-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .arch-step h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .arch-step p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .arch-step-badge {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.2rem 0.6rem;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--primary);
+            font-family: monospace;
+        }
+
+        /* Architecture Diagram Flow (Horizontal Blocks) */
+        .diagram-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding: 1.25rem 0.5rem;
+            margin: 1.5rem 0;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+        }
+
+        .diagram-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            text-align: center;
+            min-width: 100px;
+            transition: var(--transition);
+        }
+
+        .diagram-box:hover {
+            border-color: var(--primary);
+            background: rgba(0, 255, 157, 0.05);
+        }
+
+        .diagram-box .box-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .diagram-box .box-sub {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 0.2rem;
+        }
+
+        .diagram-arrow {
+            color: var(--primary);
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        /* Skills Badges Grid */
+        .skills-badge-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .skill-pill {
+            background: rgba(0, 255, 157, 0.05);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .skill-pill:hover {
+            background: rgba(0, 255, 157, 0.12);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .skill-pill i {
+            color: var(--primary);
+        }
+
+        /* Tech Cards & Design Decisions Grid */
+        .decision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .decision-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .decision-card:hover {
+            border-color: var(--primary);
+            background: rgba(0, 255, 157, 0.02);
+        }
+
+        .decision-card h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .decision-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        /* Figure Showcase */
+        .figure-box {
+            margin: 2rem 0;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .figure-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .figure-caption {
+            padding: 1.25rem 1.5rem;
+            background: rgba(18, 18, 18, 0.95);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .figure-caption i {
+            color: var(--primary);
+            margin-top: 0.2rem;
+        }
+
+        .figure-grid-dual {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        /* Custom Table Styling */
+        .custom-table-wrapper {
+            overflow-x: auto;
+            margin-top: 1.5rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+        }
+
+        .custom-table th {
+            background: rgba(0, 255, 157, 0.08);
+            color: var(--text-primary);
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+            font-weight: 700;
+        }
+
+        .custom-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .custom-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .tag-highlight {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            background: var(--primary-dim);
+            color: var(--primary);
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        /* Outcome Checklist Card */
+        .outcomes-card {
+            background: rgba(0, 255, 157, 0.03);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .outcome-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .outcome-item i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        /* Gallery Grid Showcase */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .gallery-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition-slow);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.04);
+        }
+
+        .gallery-item-title {
+            padding: 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .gallery-item-title i {
+            color: var(--primary);
+        }
+    </style>
 </head>
 <body>
     <nav>
-        <div class="logo">Portfolio</div>
+        <a href="../index.html" class="logo">MSC<span class="logo-dot">.</span></a>
         <a href="../index.html#projects" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
     </nav>
 
     <div class="project-details">
-        <header class="project-header" data-aos="fade-down">
-            <h1>Industrial Defect Detection: Computer Vision System</h1>
-            <div class="project-meta">
-                <span class="category">Computer Vision & Deep Learning</span>
-                <span class="date">2026</span>
+
+        <!-- HERO HEADER -->
+        <header class="project-header-hero" data-aos="fade-down">
+            <div class="hero-pill mb-3"><i class="fas fa-eye"></i> Computer Vision & XAI Engineering Case Study</div>
+            <h1>Comparative Study of Deep Learning Approaches for Industrial Visual Inspection</h1>
+            <p class="lead-text" style="max-width: 850px; margin: 0 auto; text-align: center;">
+                End-to-end PyTorch Deep Learning framework for automated visual inspection & anomaly classification on industrial components (MVTec AD - Bottle). Benchmarking custom CNN baselines, ResNet50 Transfer Learning, Grad-CAM Explainable AI (XAI), and IoU spatial validation.
+            </p>
+            <div class="hero-badge-strip">
+                <span class="hero-pill"><i class="fas fa-calendar"></i> 2026</span>
+                <span class="hero-pill"><i class="fas fa-camera"></i> Computer Vision</span>
+                <span class="hero-pill"><i class="fas fa-fire"></i> PyTorch & ResNet50</span>
+                <span class="hero-pill"><i class="fas fa-brain"></i> Grad-CAM & IoU</span>
+            </div>
+            
+            <!-- Quick Resources Card in Hero -->
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 2rem;">
+                <a href="https://colab.research.google.com/drive/1veTqUItxcURo6Thvk4iXW9zkvo5TqcjO?usp=sharing" class="btn btn-primary" target="_blank" rel="noopener">
+                    <i class="fas fa-laptop-code"></i> Colab (Binary Classification)
+                </a>
+                <a href="https://colab.research.google.com/drive/1Ozwa3-tifoqXzo2pwtZdZm9BaFIDJgku?usp=sharing" class="btn btn-primary" target="_blank" rel="noopener">
+                    <i class="fas fa-laptop-code"></i> Colab (Multi-Class Anomaly)
+                </a>
+                <a href="#gallery-section" class="btn btn-secondary">
+                    <i class="fas fa-images"></i> 23 Visual Artifacts
+                </a>
             </div>
         </header>
 
-        <section class="project-content">
-            <div class="project-description" data-aos="fade-up">
-                <h2>Description</h2>
-                <p>This project introduces an intelligent Computer Vision solution designed for automated quality control in manufacturing environments. Built using PyTorch and OpenCV, the deep learning model analyzes high-resolution industrial component imagery in real time to detect, segment, and classify surface defects. The architecture leverages modern convolutional neural networks optimized for high accuracy and rapid inference, significantly improving quality assurance workflows and minimizing factory downtime.</p>
-            </div>
+        <!-- LAYOUT GRID: SIDEBAR TOC + MAIN CONTENT -->
+        <div class="case-study-layout">
 
-            <div class="project-tools" data-aos="fade-up">
-                <h2>Tools & Technologies</h2>
-                <div class="tools-grid">
-                    <span class="tool">Python</span>
-                    <span class="tool">PyTorch</span>
-                    <span class="tool">OpenCV</span>
-                    <span class="tool">Computer Vision</span>
-                    <span class="tool">Deep Learning</span>
-                    <span class="tool">CNN</span>
-                    <span class="tool">Google Colab</span>
-                </div>
-            </div>
+            <!-- LEFT STICKY TABLE OF CONTENTS -->
+            <aside class="toc-sidebar" data-aos="fade-right">
+                <div class="toc-title"><i class="fas fa-list-ul"></i> Table of Contents</div>
+                <ul class="toc-list">
+                    <li><a href="#highlights" class="toc-link">01. Highlights & Exec Summary</a></li>
+                    <li><a href="#contributions" class="toc-link">02. Contributions & Skills</a></li>
+                    <li><a href="#problem" class="toc-link">03. Problem Statement</a></li>
+                    <li><a href="#dataset" class="toc-link">04. Dataset & Anomalies</a></li>
+                    <li><a href="#pipeline" class="toc-link">05. Data Processing Pipeline</a></li>
+                    <li><a href="#system-architecture" class="toc-link">06. Global Architecture</a></li>
+                    <li><a href="#model-architectures" class="toc-link">07. Model Architectures</a></li>
+                    <li><a href="#experimental-setup" class="toc-link">08. Setup & Overview</a></li>
+                    <li><a href="#challenges" class="toc-link">09. Engineering Challenges</a></li>
+                    <li><a href="#experiments" class="toc-link">10. Experiments Progression</a></li>
+                    <li><a href="#results" class="toc-link">11. Final Results & Benchmarks</a></li>
+                    <li><a href="#explainability" class="toc-link">12. Grad-CAM & IoU XAI</a></li>
+                    <li><a href="#decisions" class="toc-link">13. Design Decisions</a></li>
+                    <li><a href="#limitations" class="toc-link">14. Project Limitations</a></li>
+                    <li><a href="#conclusion" class="toc-link">15. Conclusion & Synthesis</a></li>
+                    <li><a href="#resources" class="toc-link">16. Resources & Links</a></li>
+                    <li><a href="#gallery-section" class="toc-link">17. Visual Gallery (23 Items)</a></li>
+                </ul>
+            </aside>
 
-            <div class="project-gallery" data-aos="fade-up">
-                <h2>Model Architecture & Inspection Visuals</h2>
-                <div class="gallery-single" style="display: flex; justify-content: center; margin-top: 1rem;">
-                    <img src="../images/mvnet.png" alt="Industrial Defect Detection Computer Vision Model" style="max-width: 100%; height: auto; border-radius: var(--radius-lg); border: 1px solid var(--border);">
-                </div>
-            </div>
+            <!-- MAIN CASE STUDY CONTENT -->
+            <main class="case-study-content">
 
-            <div class="project-links" data-aos="fade-up" style="margin-top: 2rem;">
-                <a href="https://colab.research.google.com/drive/1veTqUItxcURo6Thvk4iXW9zkvo5TqcjO?usp=sharing" class="btn primary" target="_blank" rel="noopener"><i class="fas fa-laptop-code"></i> Open in Google Colab</a>
-            </div>
-        </section>
+                <!-- 2. PROJECT HIGHLIGHTS & EXECUTIVE SUMMARY -->
+                <section id="highlights" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-star"></i> Project Highlights</h2>
+                    <div class="highlights-metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-check-double"></i></div>
+                            <div class="metric-label">Binary Classification</div>
+                            <div class="metric-value">100.0% Acc</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-bullseye"></i></div>
+                            <div class="metric-label">Multi-Class Acc.</div>
+                            <div class="metric-value">75.0% Acc</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-cubes"></i></div>
+                            <div class="metric-label">Models Evaluated</div>
+                            <div class="metric-value">5 Pipelines</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-search-location"></i></div>
+                            <div class="metric-label">Explainability</div>
+                            <div class="metric-value">Grad-CAM + IoU</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-database"></i></div>
+                            <div class="metric-label">Dataset</div>
+                            <div class="metric-value">MVTec AD (Bottle)</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-network-wired"></i></div>
+                            <div class="metric-label">Transfer Learning</div>
+                            <div class="metric-value">ResNet50</div>
+                        </div>
+                    </div>
+
+                    <!-- EXECUTIVE SUMMARY -->
+                    <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+                        <h3 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 0.75rem;">
+                            <i class="fas fa-file-alt"></i> Executive Summary
+                        </h3>
+                        <p class="lead-text">
+                            This case study addresses the challenge of automated visual quality inspection under severe industrial data scarcity (39 training images). We designed and benchmarked an end-to-end PyTorch deep learning pipeline on the official MVTec AD benchmark (Bottle category). Evaluated across 5 modeling configurations, the framework progresses from lightweight CNN baselines to fine-tuned ResNet50 architectures. The resulting pipeline achieves <strong>100.0% accuracy on binary defect detection</strong> and <strong>75.0% accuracy on multi-class anomaly classification</strong>. To bridge the industrial black-box trust gap, we integrated Grad-CAM activation heatmaps coupled with quantitative Intersection over Union (IoU) spatial validation, providing plant engineers with verifiable anomaly localization proof.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 3. MAIN CONTRIBUTIONS & SKILLS -->
+                <section id="contributions" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-user-check"></i> Main Contributions</h2>
+                    <p class="lead-text" style="margin-bottom: 1.5rem;">
+                        Key engineering contributions executed during the design and validation of this project:
+                    </p>
+                    <div class="decision-grid">
+                        <div class="decision-card">
+                            <h3><i class="fas fa-cogs"></i> Data Pipeline Architecture</h3>
+                            <p>Engineered an end-to-end PyTorch data pipeline with spatial augmentations, normalization, and class-weighted loss handling.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-flask"></i> Scientific Benchmarking</h3>
+                            <p>Designed and trained 5 distinct modeling workflows comparing custom CNN baselines against ResNet50 Transfer Learning.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-sliders-h"></i> Domain Fine-Tuning</h3>
+                            <p>Implemented low-learning-rate fine-tuning strategies that boosted multi-class anomaly accuracy from 33.3% to 75.0%.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-eye"></i> Grad-CAM XAI Integration</h3>
+                            <p>Integrated Gradient-weighted Class Activation Mapping targeting layer4 feature maps to generate visual saliency overlays.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-ruler-combined"></i> IoU Spatial Validation</h3>
+                            <p>Developed an automated evaluation protocol binarizing saliency maps to compute quantitative IoU scores vs GT masks.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-chart-line"></i> Experimental Visualizations</h3>
+                            <p>Produced 23 comprehensive experimental figures, loss curves, confusion matrices, and test sample inspection grids.</p>
+                        </div>
+                    </div>
+
+                    <!-- TECHNICAL SKILLS BADGES -->
+                    <h3 style="color: var(--text-primary); margin-top: 2rem; font-size: 1.15rem;">Technical Skills Demonstrated</h3>
+                    <div class="skills-badge-grid">
+                        <span class="skill-pill"><i class="fas fa-fire"></i> PyTorch 2.x</span>
+                        <span class="skill-pill"><i class="fas fa-camera"></i> Computer Vision</span>
+                        <span class="skill-pill"><i class="fas fa-brain"></i> Deep Learning</span>
+                        <span class="skill-pill"><i class="fas fa-network-wired"></i> CNN Architecture Design</span>
+                        <span class="skill-pill"><i class="fas fa-share-alt"></i> Transfer Learning</span>
+                        <span class="skill-pill"><i class="fas fa-cubes"></i> ResNet50 Backbone</span>
+                        <span class="skill-pill"><i class="fas fa-sliders-h"></i> Full Fine-Tuning</span>
+                        <span class="skill-pill"><i class="fas fa-object-group"></i> PyTorch DataLoaders</span>
+                        <span class="skill-pill"><i class="fas fa-balance-scale"></i> Class Imbalance Loss</span>
+                        <span class="skill-pill"><i class="fas fa-eye"></i> Grad-CAM (XAI)</span>
+                        <span class="skill-pill"><i class="fas fa-ruler-combined"></i> IoU Spatial Metrics</span>
+                        <span class="skill-pill"><i class="fas fa-vial"></i> Scientific Benchmarking</span>
+                    </div>
+                </section>
+
+                <!-- 4. PROBLEM STATEMENT -->
+                <section id="problem" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-bullseye"></i> Problem Statement</h2>
+                    <p class="lead-text">
+                        Automated visual quality inspection is critical for modern industrial manufacturing lines. Traditional computer vision heuristics (such as simple color thresholding or edge detection algorithms) degrade when encountering micro-fractures, subtle surface contaminations, reflections, and non-rigid structural anomalies.
+                    </p>
+                    <p class="lead-text" style="margin-top: 1rem;">
+                        While deep learning provides robust pattern recognition capabilities, deploying neural networks into real-world manufacturing environments introduces strict engineering constraints:
+                    </p>
+                    <div style="margin: 1rem 0;">
+                        <ul class="education-bullets">
+                            <li><strong>Extreme Data Scarcity:</strong> Defective production samples are rare in industrial lines, making large-scale supervised training infeasible.</li>
+                            <li><strong>Class Imbalance:</strong> Healthy components heavily dominate production data, skewing standard loss functions toward false safe approvals.</li>
+                            <li><strong>Black-Box Interpretability Limits:</strong> Plant engineers require quantitative spatial verification (XAI) proving that a model focuses on genuine physical anomaly zones rather than background reflections.</li>
+                        </ul>
+                    </div>
+                    <p class="lead-text">
+                        The objective of this case study is to design, benchmark, and quantitatively validate an end-to-end Computer Vision pipeline addressing these constraints using the official <strong>MVTec AD benchmark</strong>.
+                    </p>
+                </section>
+
+                <!-- 5. DATASET & ANOMALY CHARACTERIZATION -->
+                <section id="dataset" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-database"></i> Dataset & Anomaly Characterization</h2>
+                    <p class="lead-text">
+                        We evaluate our framework on the official <strong>MVTec Anomaly Detection (MVTec AD) benchmark</strong>, specifically targeting the <strong>Bottle category</strong>. The dataset reflects real-world industrial inspection conditions:
+                    </p>
+                    <div style="margin: 1rem 0;">
+                        <ul class="education-bullets">
+                            <li><strong>Binary Split:</strong> 229 healthy <code>Good</code> samples vs 63 defective <code>Bad</code> test samples.</li>
+                            <li><strong>Multi-Class Anomaly Split:</strong> 3 distinct defect categories (<em>broken_large</em>, <em>broken_small</em>, and <em>contamination</em>) with a constrained training subset of <strong>39 total images</strong> across all defect categories.</li>
+                            <li><strong>Pixel-Level Ground Truth:</strong> High-resolution binary segmentation masks provided for quantitative spatial localization scoring.</li>
+                        </ul>
+                    </div>
+
+                    <!-- In-line Figures for Dataset -->
+                    <div class="figure-grid-dual">
+                        <div class="figure-box">
+                            <img src="../images/defect-detection/binary/Dataset Distribution.png" alt="Dataset Distribution">
+                            <div class="figure-caption">
+                                <i class="fas fa-chart-pie"></i>
+                                <span><strong>Figure 1 (Class Imbalance Analysis):</strong> The histogram highlights the class distribution asymmetry (229 Good vs 63 Bad samples). This disparity necessitates class-weighted loss functions during optimization to prevent model bias toward majority safe classes.</span>
+                            </div>
+                        </div>
+                        <div class="figure-box">
+                            <img src="../images/defect-detection/binary/Dataset Samples.png" alt="Dataset Samples">
+                            <div class="figure-caption">
+                                <i class="fas fa-images"></i>
+                                <span><strong>Figure 2 (Visual Anomaly Inspection):</strong> Sample grid illustrating subtle visual variations between healthy glass bottles and defective units exhibiting surface cracks and contaminations.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="figure-box">
+                        <img src="../images/defect-detection/multi-class/1_grid_alignment_test_vs_gt.png" alt="Test Samples vs Ground Truth Alignment">
+                        <div class="figure-caption">
+                            <i class="fas fa-align-center"></i>
+                            <span><strong>Figure 3 (Ground Truth Segmentation Alignment):</strong> A 2x4 grid comparing test anomaly samples directly against pixel-level Ground Truth annotations. This spatial pairing establishes the baseline for downstream IoU validation.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 6. DATA PREPROCESSING & PYTORCH PIPELINE -->
+                <section id="pipeline" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-filter"></i> Data Preprocessing & PyTorch Data Pipeline</h2>
+                    <p class="lead-text">
+                        To standardize input representations while mitigating overfitting on small sample sizes, a PyTorch preprocessing pipeline was engineered:
+                    </p>
+                    <div style="margin: 1rem 0;">
+                        <ul class="education-bullets">
+                            <li><strong>Spatial Normalization:</strong> Input images are resized to <code>224 × 224</code> pixels for spatial compatibility with standard CNN backbones.</li>
+                            <li><strong>Data Augmentations:</strong> Random horizontal flipping and mild rotations ($\pm 10^\circ$) artificially increase geometric sample variance.</li>
+                            <li><strong>Standardization:</strong> Channel normalization using ImageNet mean (<code>[0.485, 0.456, 0.406]</code>) and standard deviation (<code>[0.229, 0.224, 0.225]</code>) vectors.</li>
+                        </ul>
+                    </div>
+
+                    <!-- In-line Figure DataLoader Inspection -->
+                    <div class="figure-box">
+                        <img src="../images/defect-detection/multi-class/02_dataloader_batch_inspection.png" alt="PyTorch DataLoader Inspection Batch">
+                        <div class="figure-caption">
+                            <i class="fas fa-cubes"></i>
+                            <span><strong>Figure 4 (DataLoader Batch Verification):</strong> Visual batch inspection confirming tensor shapes (<code>[B, 3, 224, 224]</code>), data augmentations, and normalization transformations prior to model forward passes.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 7. GLOBAL SYSTEM ARCHITECTURE -->
+                <section id="system-architecture" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-sitemap"></i> Global System Architecture</h2>
+                    <p class="lead-text">
+                        The diagram below outlines the modular system architecture, connecting raw data ingestion to pre-training, model evaluation, Grad-CAM heatmap extraction, and IoU spatial validation.
+                    </p>
+
+                    <div class="arch-pipeline">
+                        <div class="arch-step">
+                            <div class="arch-step-header">
+                                <span class="arch-step-num">1</span>
+                                <i class="fas fa-database arch-step-icon"></i>
+                            </div>
+                            <h3>MVTec AD Ingestion</h3>
+                            <p>Raw bottle images & pixel-accurate Ground Truth segmentation masks.</p>
+                            <span class="arch-step-badge">MVTec Benchmark</span>
+                        </div>
+                        <div class="arch-step">
+                            <div class="arch-step-header">
+                                <span class="arch-step-num">2</span>
+                                <i class="fas fa-object-group arch-step-icon"></i>
+                            </div>
+                            <h3>Preprocessing</h3>
+                            <p>Resize 224x224, Augmentation pipeline & ImageNet Normalization.</p>
+                            <span class="arch-step-badge">PyTorch DataLoader</span>
+                        </div>
+                        <div class="arch-step">
+                            <div class="arch-step-header">
+                                <span class="arch-step-num">3</span>
+                                <i class="fas fa-layer-group arch-step-icon"></i>
+                            </div>
+                            <h3>Training Pipeline</h3>
+                            <p>Comparative execution across Custom CNN and ResNet50 Transfer Learning.</p>
+                            <span class="arch-step-badge">Binary & Multi-Class</span>
+                        </div>
+                        <div class="arch-step">
+                            <div class="arch-step-header">
+                                <span class="arch-step-num">4</span>
+                                <i class="fas fa-chart-bar arch-step-icon"></i>
+                            </div>
+                            <h3>Model Evaluation</h3>
+                            <p>Loss trajectories, confusion matrices, Accuracy, Recall & F1 metrics.</p>
+                            <span class="arch-step-badge">Evaluation Suite</span>
+                        </div>
+                        <div class="arch-step">
+                            <div class="arch-step-header">
+                                <span class="arch-step-num">5</span>
+                                <i class="fas fa-eye arch-step-icon"></i>
+                            </div>
+                            <h3>Grad-CAM (XAI)</h3>
+                            <p>Feature activation heatmap extraction from <code>layer4[-1]</code> gradients.</p>
+                            <span class="arch-step-badge">Explainable AI</span>
+                        </div>
+                        <div class="arch-step">
+                            <div class="arch-step-header">
+                                <span class="arch-step-num">6</span>
+                                <i class="fas fa-ruler-combined arch-step-icon"></i>
+                            </div>
+                            <h3>IoU Validation</h3>
+                            <p>Binarized activation map alignment vs GT segmentation masks.</p>
+                            <span class="arch-step-badge">Spatial Precision Metric</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 8. MODEL ARCHITECTURES & TRAINING CONFIGURATION -->
+                <section id="model-architectures" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-microchip"></i> Model Architectures & Training Configuration</h2>
+                    <p class="lead-text">
+                        To evaluate the impact of network depth and parameter initialization, two distinct architectural paradigms were implemented.
+                    </p>
+
+                    <h3 style="color: var(--text-primary); margin-top: 1.5rem; font-size: 1.2rem;">Custom CNN Architecture</h3>
+                    <p class="lead-text">
+                        A 3-block Convolutional Neural Network designed to establish a lightweight baseline. Input tensor dimensions of <code>3 × 224 × 224</code> pass sequentially through convolutional layers, batch normalizations, max pooling, and dense classification layers.
+                    </p>
+
+                    <!-- Custom CNN Diagram -->
+                    <div class="diagram-flow">
+                        <div class="diagram-box">
+                            <div class="box-title">Input</div>
+                            <div class="box-sub">3×224×224</div>
+                        </div>
+                        <i class="fas fa-chevron-right diagram-arrow"></i>
+                        <div class="diagram-box">
+                            <div class="box-title">Conv32</div>
+                            <div class="box-sub">3×3 Conv, ReLU</div>
+                        </div>
+                        <i class="fas fa-chevron-right diagram-arrow"></i>
+                        <div class="diagram-box">
+                            <div class="box-title">Conv64</div>
+                            <div class="box-sub">3×3 Conv, MaxPool</div>
+                        </div>
+                        <i class="fas fa-chevron-right diagram-arrow"></i>
+                        <div class="diagram-box">
+                            <div class="box-title">Conv128</div>
+                            <div class="box-sub">3×3 Conv, MaxPool</div>
+                        </div>
+                        <i class="fas fa-chevron-right diagram-arrow"></i>
+                        <div class="diagram-box">
+                            <div class="box-title">Flatten</div>
+                            <div class="box-sub">Tensor Unroll</div>
+                        </div>
+                        <i class="fas fa-chevron-right diagram-arrow"></i>
+                        <div class="diagram-box">
+                            <div class="box-title">FC128</div>
+                            <div class="box-sub">Linear, Dropout</div>
+                        </div>
+                        <i class="fas fa-chevron-right diagram-arrow"></i>
+                        <div class="diagram-box" style="border-color: var(--primary);">
+                            <div class="box-title" style="color: var(--primary);">Output</div>
+                            <div class="box-sub">C Classes</div>
+                        </div>
+                    </div>
+
+                    <h3 style="color: var(--text-primary); margin-top: 2rem; font-size: 1.2rem;">ResNet50 Architecture</h3>
+                    <p class="lead-text">
+                        A 50-layer Residual Network pre-trained on ImageNet-1k. Deep residual blocks utilize skip connections to prevent vanishing gradients during backpropagation, connected to a Global Average Pooling (GAP) layer and a custom Linear FC head mapped to target output classes $C$.
+                    </p>
+
+                    <!-- ResNet50 Diagram -->
+                    <div class="diagram-flow">
+                        <div class="diagram-box">
+                            <div class="box-title">Input</div>
+                            <div class="box-sub">3×224×224</div>
+                        </div>
+                        <i class="fas fa-chevron-right diagram-arrow"></i>
+                        <div class="diagram-box" style="min-width: 160px;">
+                            <div class="box-title">ResNet50 Backbone</div>
+                            <div class="box-sub">50 Residual Layers (Frozen/Unfrozen)</div>
+                        </div>
+                        <i class="fas fa-chevron-right diagram-arrow"></i>
+                        <div class="diagram-box">
+                            <div class="box-title">GAP Layer</div>
+                            <div class="box-sub">Global Avg Pooling</div>
+                        </div>
+                        <i class="fas fa-chevron-right diagram-arrow"></i>
+                        <div class="diagram-box">
+                            <div class="box-title">FC Layer</div>
+                            <div class="box-sub">Custom Linear Classifier</div>
+                        </div>
+                        <i class="fas fa-chevron-right diagram-arrow"></i>
+                        <div class="diagram-box" style="border-color: var(--primary);">
+                            <div class="box-title" style="color: var(--primary);">Output</div>
+                            <div class="box-sub">C Classes</div>
+                        </div>
+                    </div>
+
+                    <h3 style="color: var(--text-primary); margin-top: 1.5rem; font-size: 1.1rem;">Feature Extraction vs Fine-Tuning</h3>
+                    <div class="custom-table-wrapper">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Strategy</th>
+                                    <th>Backbone State</th>
+                                    <th>Trainable Parameters</th>
+                                    <th>Learning Rate</th>
+                                    <th>Primary Scope</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Feature Extraction</strong></td>
+                                    <td>Frozen (ImageNet weights)</td>
+                                    <td>Only the final FC classifier head is trainable</td>
+                                    <td><code>1e-3</code> (Adam)</td>
+                                    <td>Preserves generic visual representations; prevents overfitting on small datasets.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Full Fine-Tuning</strong></td>
+                                    <td>Unfrozen (All 50 layers)</td>
+                                    <td>All 50 residual layers are trainable</td>
+                                    <td><code>1e-4</code> (Adam)</td>
+                                    <td>Adapts deep convolutional filters to domain-specific glass surface anomalies.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="color: var(--text-primary); margin-top: 2rem; font-size: 1.2rem;">Hyperparameter Training Configuration</h3>
+                    <div class="custom-table-wrapper">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Hyperparameter</th>
+                                    <th>Binary Classification Task</th>
+                                    <th>Multi-Class Classification Task</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Input Dimension</strong></td>
+                                    <td><code>224 × 224 × 3</code></td>
+                                    <td><code>224 × 224 × 3</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Batch Size</strong></td>
+                                    <td>16</td>
+                                    <td>8</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Optimizer</strong></td>
+                                    <td>Adam ($\beta_1=0.9, \beta_2=0.999$)</td>
+                                    <td>Adam ($\beta_1=0.9, \beta_2=0.999$)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Learning Rate</strong></td>
+                                    <td><code>1e-3</code> (CNN & ResNet FE)</td>
+                                    <td><code>1e-3</code> (FE) / <code>1e-4</code> (Fine-Tuning)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Epochs</strong></td>
+                                    <td>20 (CNN) / 15 (ResNet)</td>
+                                    <td>20 (CNN) / 25 (ResNet)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Loss Function</strong></td>
+                                    <td><code>Weighted CrossEntropyLoss</code> (weights <code>[1.0, 0.2131]</code>)</td>
+                                    <td><code>CrossEntropyLoss</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pretrained Weights</strong></td>
+                                    <td><code>ResNet50_Weights.DEFAULT</code> (ImageNet)</td>
+                                    <td><code>ResNet50_Weights.DEFAULT</code> (ImageNet)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Hardware & Framework</strong></td>
+                                    <td>NVIDIA T4 GPU • PyTorch 2.x</td>
+                                    <td>NVIDIA T4 GPU • PyTorch 2.x</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 9. EXPERIMENTAL SETUP & FINAL PERFORMANCE OVERVIEW -->
+                <section id="experimental-setup" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-vial"></i> Experimental Setup & Final Performance Overview</h2>
+                    <p class="lead-text">
+                        To isolate architectural performance from data scale effects, experiments were partitioned into two evaluation tracks:
+                    </p>
+                    <div class="custom-table-wrapper" style="margin-top: 1rem;">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Inspection Track</th>
+                                    <th>Target Classes</th>
+                                    <th>Evaluated Models</th>
+                                    <th>Primary Evaluation Objective</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Track 1: Binary Detection</strong></td>
+                                    <td><code>Good</code> vs <code>Bad</code> (2 classes)</td>
+                                    <td>Custom CNN Baseline • ResNet50 Transfer Learning</td>
+                                    <td>Assess coarse anomaly detection and recall on defective samples.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Track 2: Multi-Class Detection</strong></td>
+                                    <td><code>broken</code>, <code>contamination</code>, <code>defect</code> (3 classes)</td>
+                                    <td>Custom CNN • ResNet50 FE • ResNet50 Fine-Tuning</td>
+                                    <td>Benchmark multi-class accuracy under severe sample scarcity (39 images).</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Final Performance Overview Block -->
+                    <h3 style="color: var(--text-primary); margin-top: 2rem; font-size: 1.2rem;">Final Performance Overview</h3>
+                    <div class="custom-table-wrapper">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Task / Metric</th>
+                                    <th>Best Model Architecture</th>
+                                    <th>Strategy / Method</th>
+                                    <th>Quantified Result</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background: rgba(0, 255, 157, 0.05);">
+                                    <td><strong>Binary Detection</strong></td>
+                                    <td>ResNet50</td>
+                                    <td>Transfer Learning</td>
+                                    <td><span class="tag-highlight">100.0% Accuracy</span></td>
+                                </tr>
+                                <tr style="background: rgba(0, 255, 157, 0.05);">
+                                    <td><strong>Multi-Class Anomaly</strong></td>
+                                    <td>ResNet50</td>
+                                    <td>Full Fine-Tuning</td>
+                                    <td><span class="tag-highlight">75.0% Accuracy (0.74 Macro F1)</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Visual Explainability</strong></td>
+                                    <td>Grad-CAM</td>
+                                    <td>Targeting <code>layer4[-1]</code> Feature Maps</td>
+                                    <td><span class="tag-highlight">✓ Heatmap Activation Maps</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Spatial Localization</strong></td>
+                                    <td>IoU Metric</td>
+                                    <td>Binarized Activation vs GT Masks</td>
+                                    <td><span class="tag-highlight">✓ Quantitative Spatial Score</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 10. ENGINEERING CHALLENGES (PLACED BEFORE EXPERIMENTS) -->
+                <section id="challenges" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-tools"></i> Engineering Challenges & Applied Solutions</h2>
+                    <p class="lead-text">
+                        Developing a reliable visual inspection system required addressing key data and architectural challenges prior to model optimization:
+                    </p>
+
+                    <div class="custom-table-wrapper">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Engineering Challenge</th>
+                                    <th>Root Cause / Difficulty</th>
+                                    <th>Applied Engineering Solution</th>
+                                    <th>Quantitative Result</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Data Scarcity</strong></td>
+                                    <td>Only 39 multi-class training images available across 3 defect categories.</td>
+                                    <td>Transfer Learning with pre-trained ResNet50 + spatial augmentations.</td>
+                                    <td>Accuracy increased from 33.3% (CNN) to 75.0% (ResNet FT).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Class Imbalance</strong></td>
+                                    <td>229 <code>Good</code> vs 63 <code>Bad</code> samples causing model bias toward healthy approvals.</td>
+                                    <td>Implemented <code>Weighted CrossEntropyLoss</code> (weights <code>[1.0, 0.2131]</code>).</td>
+                                    <td>100% Recall on defective parts (0 false safe approvals).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Overfitting Risk</strong></td>
+                                    <td>Deep CNNs memorize small sample sets without learning generalized features.</td>
+                                    <td>Backbone freezing + low learning rate ($10^{-4}$) during fine-tuning.</td>
+                                    <td>Stable validation loss decay without divergence.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Black-Box Trust Limit</strong></td>
+                                    <td>Uninterpreted predictions lack spatial verification for plant operators.</td>
+                                    <td>Coupled Grad-CAM heatmaps with binarized IoU map scoring.</td>
+                                    <td>Verifiable spatial precision matching physical defects.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 11. EXPERIMENTS & SCIENTIFIC PROGRESSION -->
+                <section id="experiments" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-flask"></i> Experiments & Scientific Progression</h2>
+                    <p class="lead-text">
+                        Model evaluation was conducted progressively across both inspection tracks to measure incremental gains from baseline architectures to fine-tuned residual networks.
+                    </p>
+
+                    <!-- EXPERIMENTATION 1: BINARY CLASSIFICATION -->
+                    <div style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+                        <h3 style="color: var(--text-primary); font-size: 1.4rem; margin-bottom: 1rem;">
+                            <i class="fas fa-check-circle" style="color: var(--primary);"></i> Track 1: Binary Classification (Good vs Bad)
+                        </h3>
+                        <p class="lead-text">
+                            The binary task evaluates whether a component is defect-free (<code>Good</code>) or compromised (<code>Bad</code>).
+                        </p>
+
+                        <!-- Baseline 1: Binary CNN -->
+                        <div style="margin-top: 1.5rem; background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+                            <h4 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 0.5rem;">Baseline 1 — Custom CNN From Scratch (Binary)</h4>
+                            <p class="lead-text">
+                                <strong>Hypothesis & Setup:</strong> A lightweight 3-block CNN was trained from scratch for 20 epochs using Adam (<code>1e-3</code>) to establish a minimal baseline.
+                            </p>
+                            <p class="lead-text" style="margin-top: 0.5rem;">
+                                <strong>Performance Analysis:</strong> Achieved <strong>97.2% Accuracy</strong> (35/36 test samples correct). While effective for coarse binary separation, the custom filters exhibited minor classification noise on subtle surface cracks.
+                            </p>
+
+                            <div class="figure-grid-dual">
+                                <div class="figure-box">
+                                    <img src="../images/defect-detection/binary/CNN Training Curves.png" alt="CNN Training Curves">
+                                    <div class="figure-caption">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span><strong>Figure 5 (CNN Binary Training Curves):</strong> Figure 5 illustrates the convergence trajectory of the custom CNN over 20 epochs. Training loss decreases steadily, but validation accuracy plateaus around epoch 12, demonstrating the limits of training custom convolutional filters from scratch on small datasets.</span>
+                                    </div>
+                                </div>
+                                <div class="figure-box">
+                                    <img src="../images/defect-detection/binary/CNN Confusion Matrix.png" alt="CNN Confusion Matrix">
+                                    <div class="figure-caption">
+                                        <i class="fas fa-th"></i>
+                                        <span><strong>Figure 6 (CNN Binary Confusion Matrix):</strong> Figure 6 displays the evaluation matrix on 36 test samples. The model achieves 97.2% accuracy (35/36 correct), with a single false positive misclassification highlighting minor decision boundary blurriness.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="figure-box">
+                                <img src="../images/defect-detection/binary/CNN Predictions.png" alt="CNN Predictions">
+                                <div class="figure-caption">
+                                    <i class="fas fa-tasks"></i>
+                                    <span><strong>Figure 7 (CNN Binary Prediction Grid):</strong> Figure 7 shows predicted class probabilities on binary test samples, verifying that predictions maintain high confidence on obvious defect-free and defective bottles.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Final Model: Binary ResNet50 -->
+                        <div style="margin-top: 2rem; background: rgba(0, 255, 157, 0.02); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid rgba(0, 255, 157, 0.2);">
+                            <h4 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 0.5rem;">Final Model — ResNet50 Transfer Learning (Binary)</h4>
+                            <p class="lead-text">
+                                <strong>Hypothesis & Setup:</strong> Leveraging pre-trained ImageNet representations via ResNet50 Transfer Learning for 15 epochs.
+                            </p>
+                            <p class="lead-text" style="margin-top: 0.5rem;">
+                                <strong>Performance Analysis:</strong> Reached <strong>100.0% Accuracy</strong> on the test set (36/36 correct) by epoch 15, eliminating false safe approvals.
+                            </p>
+
+                            <div class="figure-grid-dual">
+                                <div class="figure-box">
+                                    <img src="../images/defect-detection/binary/ResNet50 Training Curves (loss).png" alt="ResNet50 Loss Curve">
+                                    <div class="figure-caption">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span><strong>Figure 8 (ResNet50 Binary Loss Trajectory):</strong> Figure 8 illustrates the rapid convergence achieved through transfer learning. Training loss decreases smoothly without instability, highlighting the robustness of pre-trained ImageNet representations on limited industrial datasets.</span>
+                                    </div>
+                                </div>
+                                <div class="figure-box">
+                                    <img src="../images/defect-detection/binary/ResNet50 Training Curves (Accuracy).png" alt="ResNet50 Accuracy Curve">
+                                    <div class="figure-caption">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span><strong>Figure 9 (ResNet50 Binary Accuracy Trajectory):</strong> Figure 9 tracks validation accuracy reaching 100.0% by epoch 15, confirming rapid convergence enabled by pre-trained residual feature extractors.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="figure-grid-dual">
+                                <div class="figure-box">
+                                    <img src="../images/defect-detection/binary/ResNet50 Confusion Matrix.png" alt="ResNet50 Confusion Matrix">
+                                    <div class="figure-caption">
+                                        <i class="fas fa-check-double"></i>
+                                        <span><strong>Figure 10 (ResNet50 Binary Confusion Matrix):</strong> Figure 10 confirms perfect 36/36 test evaluation, demonstrating zero false positive or false negative classifications.</span>
+                                    </div>
+                                </div>
+                                <div class="figure-box">
+                                    <img src="../images/defect-detection/binary/ResNet50 Predictions.png" alt="ResNet50 Predictions">
+                                    <div class="figure-caption">
+                                        <i class="fas fa-magic"></i>
+                                        <span><strong>Figure 11 (ResNet50 Binary Prediction Visuals):</strong> Figure 11 displays qualitative predictions showing 100% confidence scores across healthy and defective test bottle samples.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="figure-grid-dual">
+                                <div class="figure-box">
+                                    <img src="../images/defect-detection/binary/Metrics Comparison (Accuracy).png" alt="Metrics Comparison">
+                                    <div class="figure-caption">
+                                        <i class="fas fa-balance-scale"></i>
+                                        <span><strong>Figure 12 (Binary Accuracy Comparison Bar Chart):</strong> Figure 12 contrasts the performance gain between the Custom CNN (97.2%) and ResNet50 Transfer Learning (100.0%), underscoring the superiority of pre-trained representations.</span>
+                                    </div>
+                                </div>
+                                <div class="figure-box">
+                                    <img src="../images/defect-detection/binary/Model Comparison (Matrix table).png" alt="Model Comparison Table">
+                                    <div class="figure-caption">
+                                        <i class="fas fa-table"></i>
+                                        <span><strong>Figure 13 (Binary Metrics Summary Table):</strong> Figure 13 synthesizes Precision, Recall, and F1-Score metrics across binary models, confirming optimal classification performance on the test set.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EXPERIMENTATION 2: MULTI-CLASS CLASSIFICATION -->
+                    <div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+                        <h3 style="color: var(--text-primary); font-size: 1.4rem; margin-bottom: 1rem;">
+                            <i class="fas fa-th-list" style="color: var(--primary);"></i> Track 2: Multi-Class Anomaly Classification
+                        </h3>
+                        <p class="lead-text">
+                            Multi-class classification evaluates defect categorization (<em>broken</em>, <em>contamination</em>, <em>defect</em>) under extreme sample scarcity (39 total training images).
+                        </p>
+
+                        <!-- Stage 1: CNN Multi-Class -->
+                        <div style="margin-top: 1.5rem; background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+                            <h4 style="color: #ff4d4d; font-size: 1.1rem; margin-bottom: 0.5rem;">Phase 1 — Custom CNN From Scratch (Multi-Class)</h4>
+                            <p class="lead-text">
+                                <strong>Hypothesis & Limits:</strong> Training a custom CNN from scratch on 39 images for 20 epochs. As expected, random filter initialization failed to learn generic representations, resulting in severe overfitting and a random-chance accuracy of <strong>33.3%</strong>.
+                            </p>
+
+                            <div class="figure-grid-dual">
+                                <div class="figure-box">
+                                    <img src="../images/defect-detection/multi-class/03_cnn_simple_confusion_curves.png" alt="CNN Multi-Class Curves">
+                                    <div class="figure-caption">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span><strong>Figure 14 (CNN Multi-Class Learning Curves):</strong> Figure 14 illustrates severe train/validation divergence. Training loss decays while validation loss explodes, proving that 39 images are insufficient to train random weights from scratch.</span>
+                                    </div>
+                                </div>
+                                <div class="figure-box">
+                                    <img src="../images/defect-detection/multi-class/04_cnn_simple_confusion_matrix.png" alt="CNN Multi-Class Confusion Matrix">
+                                    <div class="figure-caption">
+                                        <i class="fas fa-times-circle"></i>
+                                        <span><strong>Figure 15 (CNN Multi-Class Confusion Matrix):</strong> Figure 15 reveals severe misclassifications across defect categories, yielding a 33.3% accuracy baseline equivalent to random selection.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="figure-box">
+                                <img src="../images/defect-detection/multi-class/05_cnn_simple_test_predictions.png" alt="CNN Multi-Class Predictions">
+                                <div class="figure-caption">
+                                    <i class="fas fa-tasks"></i>
+                                    <span><strong>Figure 16 (CNN Multi-Class Test Predictions):</strong> Figure 16 highlights widespread prediction errors across test samples, confirming the architectural incapacity of uninitialized CNNs on ultra-small datasets.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 2: ResNet FE -->
+                        <div style="margin-top: 2rem; background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+                            <h4 style="color: #ffaa00; font-size: 1.1rem; margin-bottom: 0.5rem;">Phase 2 — ResNet50 Feature Extraction</h4>
+                            <p class="lead-text">
+                                <strong>Hypothesis & Gains:</strong> Freezing the ImageNet backbone and training only the linear classifier head for 25 epochs using Adam (<code>1e-3</code>). Accuracy doubled from 33.3% to <strong>66.7%</strong> (+33.4% boost), demonstrating the necessity of pre-trained feature representations on constrained datasets.
+                            </p>
+
+                            <div class="figure-grid-dual">
+                                <div class="figure-box">
+                                    <img src="../images/defect-detection/multi-class/06_resnet_feature_extraction_curves.png" alt="ResNet FE Curves">
+                                    <div class="figure-caption">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span><strong>Figure 17 (ResNet FE Curves):</strong> Figure 17 shows stabilized validation loss curves resulting from backbone freezing, preventing overfitting while optimizing the classification head.</span>
+                                    </div>
+                                </div>
+                                <div class="figure-box">
+                                    <img src="../images/defect-detection/multi-class/07_resnet_feature_extraction_confusion_matrix.png" alt="ResNet FE Confusion Matrix">
+                                    <div class="figure-caption">
+                                        <i class="fas fa-forward"></i>
+                                        <span><strong>Figure 18 (ResNet FE Confusion Matrix):</strong> Figure 18 demonstrates a significant accuracy increase to 66.7%, with confusion matrix diagonal elements showing strong category separation.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="figure-box">
+                                <img src="../images/defect-detection/multi-class/08_resnet_feature_extraction_test_predictions.png" alt="ResNet FE Predictions">
+                                <div class="figure-caption">
+                                    <i class="fas fa-check"></i>
+                                    <span><strong>Figure 19 (ResNet FE Test Predictions):</strong> Figure 19 displays test predictions showing correct identification on major defect categories, though minor confusion persists on subtle micro-cracks.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 3: ResNet FT -->
+                        <div style="margin-top: 2rem; background: rgba(0, 255, 157, 0.02); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid rgba(0, 255, 157, 0.2);">
+                            <h4 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 0.5rem;">Phase 3 — ResNet50 Full Fine-Tuning</h4>
+                            <p class="lead-text">
+                                <strong>Hypothesis & Optimal Result:</strong> Unfreezing all 50 layers and fine-tuning end-to-end for 25 epochs at a low learning rate ($10^{-4}$). This enabled deep convolutional kernels to adapt specifically to glass surface micro-anomalies, achieving an optimal Multi-Class <strong>Accuracy of 75.0%</strong> (Macro F1 = 0.74), representing an +8.3% increase over Feature Extraction.
+                            </p>
+
+                            <div class="figure-grid-dual">
+                                <div class="figure-box">
+                                    <img src="../images/defect-detection/multi-class/10_resnet_finetuning_curves.png" alt="ResNet FT Curves">
+                                    <div class="figure-caption">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span><strong>Figure 20 (ResNet FT Curves):</strong> Figure 20 demonstrates optimal loss convergence achieved through low-learning-rate fine-tuning, allowing deep layers to adapt without destroying ImageNet features.</span>
+                                    </div>
+                                </div>
+                                <div class="figure-box">
+                                    <img src="../images/defect-detection/multi-class/09_resnet_finetuning_confusion_matrix.png" alt="ResNet FT Confusion Matrix">
+                                    <div class="figure-caption">
+                                        <i class="fas fa-trophy"></i>
+                                        <span><strong>Figure 21 (ResNet FT Confusion Matrix):</strong> Figure 21 displays the peak 75.0% multi-class confusion matrix, confirming improved discrimination on complex micro-fracture glass defects.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="figure-box">
+                                <img src="../images/defect-detection/multi-class/11_resnet_finetuning_test_predictions.png" alt="ResNet FT Predictions">
+                                <div class="figure-caption">
+                                    <i class="fas fa-magic"></i>
+                                    <span><strong>Figure 22 (ResNet FT Final Predictions):</strong> Figure 22 illustrates final test set prediction grids, demonstrating accurate multi-class anomaly identification on test bottles.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 12. FINAL RESULTS & QUANTITATIVE BENCHMARKS -->
+                <section id="results" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-award"></i> Final Results & Quantitative Benchmarks</h2>
+                    <p class="lead-text">
+                        The comparative tables below synthesize quantitative model performance across binary and multi-class inspection tracks.
+                    </p>
+
+                    <h3 style="color: var(--text-primary); margin-top: 1.5rem; font-size: 1.15rem;">Track 1: Binary Classification Performance</h3>
+                    <div class="custom-table-wrapper">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Model Architecture</th>
+                                    <th>Training Strategy</th>
+                                    <th>Accuracy</th>
+                                    <th>Recall (Bad)</th>
+                                    <th>Precision</th>
+                                    <th>F1-Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Custom CNN</strong></td>
+                                    <td>From Scratch</td>
+                                    <td>97.2%</td>
+                                    <td>95.5%</td>
+                                    <td>98.0%</td>
+                                    <td>0.967</td>
+                                </tr>
+                                <tr style="background: rgba(0, 255, 157, 0.05);">
+                                    <td><strong>ResNet50 (Final)</strong></td>
+                                    <td>Transfer Learning</td>
+                                    <td><span class="tag-highlight">100.0%</span></td>
+                                    <td><span class="tag-highlight">100.0%</span></td>
+                                    <td><span class="tag-highlight">100.0%</span></td>
+                                    <td><span class="tag-highlight">1.000</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="color: var(--text-primary); margin-top: 2rem; font-size: 1.15rem;">Track 2: Multi-Class Anomaly Performance (39 Training Samples)</h3>
+                    <div class="custom-table-wrapper">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Model Architecture</th>
+                                    <th>Strategy</th>
+                                    <th>Accuracy</th>
+                                    <th>Macro F1</th>
+                                    <th>Performance Breakdown</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Custom CNN</strong></td>
+                                    <td>From Scratch</td>
+                                    <td>33.3%</td>
+                                    <td>0.28</td>
+                                    <td>Severe overfitting; random chance baseline.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>ResNet50 FE</strong></td>
+                                    <td>Feature Extraction</td>
+                                    <td>66.7%</td>
+                                    <td>0.67</td>
+                                    <td>+33.4% gain; frozen ImageNet feature representations.</td>
+                                </tr>
+                                <tr style="background: rgba(0, 255, 157, 0.05);">
+                                    <td><strong>ResNet50 FT (Final)</strong></td>
+                                    <td>Full Fine-Tuning</td>
+                                    <td><span class="tag-highlight">75.0%</span></td>
+                                    <td><span class="tag-highlight">0.74</span></td>
+                                    <td><span class="tag-highlight">Optimal configuration; adapted deep spatial filters (+8.3%).</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 13. EXPLAINABILITY (XAI) & SPATIAL VALIDATION -->
+                <section id="explainability" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-eye"></i> Explainability (XAI) & IoU Spatial Validation</h2>
+                    <p class="lead-text">
+                        To address black-box interpretability requirements in industrial environments, we implemented <strong>Grad-CAM (Gradient-weighted Class Activation Mapping)</strong> targeting feature maps from the final convolutional layer (<code>layer4[-1]</code>) of ResNet50. Grad-CAM computes backpropagated gradient weights to generate visual activation heatmaps.
+                    </p>
+                    <p class="lead-text" style="margin-top: 1rem;">
+                        To transform qualitative heatmaps into a quantitative metric, activation maps were binarized and evaluated via <strong>Intersection over Union (IoU)</strong> against pixel-level Ground Truth segmentation masks. This spatial validation confirms that activations align directly with physical defect regions rather than background clutter.
+                    </p>
+
+                    <div class="figure-box" style="border: 2px solid var(--primary); box-shadow: var(--shadow-glow);">
+                        <img src="../images/defect-detection/multi-class/12_gradcam_heatmaps_iou_overlay.png" alt="Grad-CAM Heatmaps & IoU Overlay">
+                        <div class="figure-caption" style="background: rgba(0, 255, 157, 0.08);">
+                            <i class="fas fa-star" style="color: var(--primary);"></i>
+                            <span><strong>Figure 23 (Grad-CAM Saliency & IoU Spatial Overlay):</strong> Figure 23 showcases Grad-CAM activation heatmaps overlaid with green Ground Truth contours and numerical IoU scores, proving that activation hotspots coincide spatially with physical defect locations.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 14. DESIGN DECISIONS & ARCHITECTURAL JUSTIFICATIONS -->
+                <section id="decisions" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-compass"></i> Design Decisions & Architectural Rationale</h2>
+                    <p class="lead-text">
+                        Architectural choices were guided by data constraints, optimization trade-offs, and industrial verification requirements:
+                    </p>
+
+                    <div class="decision-grid">
+                        <div class="decision-card">
+                            <h3><i class="fas fa-network-wired"></i> Why ResNet50?</h3>
+                            <p>Residual connections prevent vanishing gradients during deep feature extraction, providing pre-trained ImageNet representations compatible with Grad-CAM gradient backpropagation.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-lock"></i> Why Transfer Learning?</h3>
+                            <p>Training millions of parameters from scratch on 39 images causes immediate overfitting. Freezing early convolutional blocks preserves generic edge and texture filters.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-sliders-h"></i> Why Full Fine-Tuning?</h3>
+                            <p>Generic ImageNet representations require domain adaptation for subtle glass cracks. Unfreezing deep layers with a low learning rate ($10^{-4}$) yielded an +8.3% accuracy gain.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-eye"></i> Why Grad-CAM?</h3>
+                            <p>Generates gradient-based activation heatmaps without requiring architectural modifications or impacting forward inference latency.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-ruler-combined"></i> Why IoU Spatial Validation?</h3>
+                            <p>Converts qualitative heatmap inspection into a quantitative spatial precision metric by comparing binarized activations against Ground Truth masks.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-balance-scale"></i> Why Weighted CrossEntropy?</h3>
+                            <p>Mitigates the 229 Good vs 63 Bad sample imbalance by weighting defective classes (weights <code>[1.0, 0.2131]</code>), achieving 100% Recall on anomalies.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 15. PROJECT LIMITATIONS -->
+                <section id="limitations" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-exclamation-triangle"></i> Project Limitations & Critical Analysis</h2>
+                    <p class="lead-text">
+                        A thorough engineering evaluation requires identifying technical boundaries and methodological constraints:
+                    </p>
+                    <div style="margin: 1rem 0;">
+                        <ul class="education-bullets">
+                            <li><strong>Constrained Sample Size:</strong> 39 multi-class training images constrain statistical confidence, necessitating further validation on larger sample populations.</li>
+                            <li><strong>Single Benchmark Category Scope:</strong> Experiments focused on the MVTec AD <em>Bottle</em> category; evaluating generalizability requires cross-category validation (e.g., cables, transistors).</li>
+                            <li><strong>Single Train/Test Split:</strong> Evaluation followed the standard benchmark split without K-Fold cross-validation, which could be incorporated to measure variance across data folds.</li>
+                            <li><strong>Absence of Recent Architecture Baselines:</strong> Comparison was limited to CNNs and ResNet50; future benchmarks should include modern backbones (ConvNeXt, Vision Transformers).</li>
+                            <li><strong>Saliency Interpretability Limits:</strong> Grad-CAM provides gradient saliency visualizations rather than causal mechanistic guarantees of model decision-making.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 16. CONCLUSION & ENGINEERING SYNTHESIS -->
+                <section id="conclusion" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-graduation-cap"></i> Conclusion & Engineering Synthesis</h2>
+                    <p class="lead-text">
+                        This case study demonstrates the technical progression required to build a reliable visual inspection system under severe industrial data constraints. By systematically benchmarking custom CNN baselines against pre-trained residual networks, the evaluation highlights the critical role of Transfer Learning on constrained datasets—doubling multi-class accuracy from 33.3% to 66.7%—while full Fine-Tuning further adapts deep spatial representations to achieve a peak accuracy of 75.0%.
+                    </p>
+                    <p class="lead-text" style="margin-top: 1rem;">
+                        Beyond classification metrics, integrating Grad-CAM explainability coupled with quantitative IoU spatial validation addresses the black-box trust gap in industrial deployment. This dual focus on predictive accuracy and verifiable spatial localization reflects a practical AI engineering approach to automated quality control.
+                    </p>
+
+                    <!-- Project Outcomes Summary Card -->
+                    <div class="outcomes-card">
+                        <h3 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 0.75rem;">
+                            <i class="fas fa-check-circle"></i> Summary of Project Outcomes
+                        </h3>
+                        <div class="outcomes-grid">
+                            <div class="outcome-item"><i class="fas fa-check"></i> 5 Deep Learning pipelines evaluated</div>
+                            <div class="outcome-item"><i class="fas fa-check"></i> 23 experimental figures produced</div>
+                            <div class="outcome-item"><i class="fas fa-check"></i> 100.0% Binary Detection Accuracy</div>
+                            <div class="outcome-item"><i class="fas fa-check"></i> 75.0% Multi-Class Anomaly Accuracy</div>
+                            <div class="outcome-item"><i class="fas fa-check"></i> Grad-CAM Explainability integrated</div>
+                            <div class="outcome-item"><i class="fas fa-check"></i> IoU Spatial Validation implemented</div>
+                            <div class="outcome-item"><i class="fas fa-check"></i> End-to-End PyTorch Pipeline developed</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 16. RESOURCES & LINKS -->
+                <section id="resources" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-link"></i> Project Resources & Notebook Links</h2>
+                    <div class="decision-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                        <a href="https://colab.research.google.com/drive/1veTqUItxcURo6Thvk4iXW9zkvo5TqcjO?usp=sharing" target="_blank" rel="noopener" style="text-decoration: none;">
+                            <div class="decision-card" style="border-color: var(--primary); background: rgba(0, 255, 157, 0.03);">
+                                <h3><i class="fas fa-laptop-code"></i> Binary Classification Notebook</h3>
+                                <p>Access the full PyTorch implementation for CNN baseline, ResNet50 Transfer Learning (100% Acc), and binary evaluation metrics.</p>
+                            </div>
+                        </a>
+                        <a href="https://colab.research.google.com/drive/1Ozwa3-tifoqXzo2pwtZdZm9BaFIDJgku?usp=sharing" target="_blank" rel="noopener" style="text-decoration: none;">
+                            <div class="decision-card" style="border-color: var(--primary); background: rgba(0, 255, 157, 0.03);">
+                                <h3><i class="fas fa-laptop-code"></i> Multi-Class Anomaly Notebook</h3>
+                                <p>Explore Feature Extraction, Full Fine-Tuning (75.0% Acc), Grad-CAM heatmap generation, and IoU spatial validation code.</p>
+                            </div>
+                        </a>
+                        <a href="#gallery-section" style="text-decoration: none;">
+                            <div class="decision-card">
+                                <h3><i class="fas fa-images"></i> 23 Visual Artifacts</h3>
+                                <p>Browse the complete gallery of experimental figures, confusion matrices, loss curves, and Grad-CAM overlays.</p>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- 18. COMPLETE GALLERY SHOWCASE -->
+                <section id="gallery-section" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-images"></i> Complete Experimentation Gallery (23 Visual Artifacts)</h2>
+                    <p class="lead-text" style="margin-bottom: 2rem;">
+                        Explore the complete collection of high-resolution experimental charts, confusion matrices, batch inspectors, prediction grids, and Grad-CAM spatial explainability overlays across binary and multi-class pipelines.
+                    </p>
+
+                    <!-- GALLERY PART 1: BINARY CLASSIFICATION PIPELINE -->
+                    <h3 style="color: var(--text-primary); font-size: 1.2rem; margin-bottom: 1.25rem;">
+                        <i class="fas fa-check-double" style="color: var(--primary);"></i> Binary Anomaly Classification Gallery (11 Artifacts)
+                    </h3>
+                    <div class="gallery-container" style="margin-bottom: 3rem;">
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/binary/Dataset Distribution.png" alt="Dataset Distribution">
+                            <div class="gallery-item-title"><i class="fas fa-chart-pie"></i> Dataset Class Imbalance</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/binary/Dataset Samples.png" alt="Dataset Samples">
+                            <div class="gallery-item-title"><i class="fas fa-images"></i> Component Image Samples</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/binary/CNN Training Curves.png" alt="CNN Training Curves">
+                            <div class="gallery-item-title"><i class="fas fa-chart-line"></i> CNN Binary Training Curves</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/binary/CNN Confusion Matrix.png" alt="CNN Confusion Matrix">
+                            <div class="gallery-item-title"><i class="fas fa-th"></i> CNN Binary Matrix (97.2%)</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/binary/CNN Predictions.png" alt="CNN Predictions">
+                            <div class="gallery-item-title"><i class="fas fa-tasks"></i> CNN Binary Predictions</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/binary/ResNet50 Training Curves (loss).png" alt="ResNet50 Loss Curve">
+                            <div class="gallery-item-title"><i class="fas fa-chart-line"></i> ResNet50 Binary Loss Curve</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/binary/ResNet50 Training Curves (Accuracy).png" alt="ResNet50 Accuracy Curve">
+                            <div class="gallery-item-title"><i class="fas fa-chart-line"></i> ResNet50 Binary Acc Curve</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/binary/ResNet50 Confusion Matrix.png" alt="ResNet50 Confusion Matrix">
+                            <div class="gallery-item-title"><i class="fas fa-check-double"></i> ResNet50 Binary Matrix (100%)</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/binary/ResNet50 Predictions.png" alt="ResNet50 Predictions">
+                            <div class="gallery-item-title"><i class="fas fa-magic"></i> ResNet50 Binary Predictions</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/binary/Metrics Comparison (Accuracy).png" alt="Metrics Comparison">
+                            <div class="gallery-item-title"><i class="fas fa-balance-scale"></i> Accuracy Comparison Bar Chart</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/binary/Model Comparison (Matrix table).png" alt="Model Comparison Matrix Table">
+                            <div class="gallery-item-title"><i class="fas fa-table"></i> Complete Metrics Summary Table</div>
+                        </div>
+                    </div>
+
+                    <!-- GALLERY PART 2: EXPLAINABILITY & MULTI-CLASS PIPELINE -->
+                    <h3 style="color: var(--text-primary); font-size: 1.2rem; margin-bottom: 1.25rem;">
+                        <i class="fas fa-eye" style="color: var(--primary);"></i> Multi-Class Anomaly & XAI Gallery (12 Artifacts)
+                    </h3>
+                    <div class="gallery-container">
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/multi-class/12_gradcam_heatmaps_iou_overlay.png" alt="12 Grad-CAM Heatmaps IoU Overlay">
+                            <div class="gallery-item-title"><i class="fas fa-star"></i> 12. Grad-CAM & IoU Overlays</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/multi-class/1_grid_alignment_test_vs_gt.png" alt="1 Grid Alignment Test vs GT">
+                            <div class="gallery-item-title"><i class="fas fa-align-center"></i> 01. Test vs Ground Truth Grid</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/multi-class/02_dataloader_batch_inspection.png" alt="02 DataLoader Batch Inspection">
+                            <div class="gallery-item-title"><i class="fas fa-cubes"></i> 02. DataLoader Batch Inspector</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/multi-class/03_cnn_simple_confusion_curves.png" alt="03 CNN Simple Curves">
+                            <div class="gallery-item-title"><i class="fas fa-chart-line"></i> 03. CNN Multi-Class Curves</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/multi-class/04_cnn_simple_confusion_matrix.png" alt="04 CNN Simple Confusion Matrix">
+                            <div class="gallery-item-title"><i class="fas fa-times-circle"></i> 04. CNN Multi-Class Matrix (33.3%)</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/multi-class/05_cnn_simple_test_predictions.png" alt="05 CNN Simple Test Predictions">
+                            <div class="gallery-item-title"><i class="fas fa-tasks"></i> 05. CNN Test Predictions</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/multi-class/06_resnet_feature_extraction_curves.png" alt="06 ResNet Feature Extraction Curves">
+                            <div class="gallery-item-title"><i class="fas fa-chart-line"></i> 06. ResNet FE Curves</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/multi-class/07_resnet_feature_extraction_confusion_matrix.png" alt="07 ResNet FE Confusion Matrix">
+                            <div class="gallery-item-title"><i class="fas fa-forward"></i> 07. ResNet FE Matrix (66.7%)</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/multi-class/08_resnet_feature_extraction_test_predictions.png" alt="08 ResNet FE Test Predictions">
+                            <div class="gallery-item-title"><i class="fas fa-check"></i> 08. ResNet FE Predictions</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/multi-class/10_resnet_finetuning_curves.png" alt="10 ResNet Fine-Tuning Curves">
+                            <div class="gallery-item-title"><i class="fas fa-chart-line"></i> 10. ResNet FT Curves</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/multi-class/09_resnet_finetuning_confusion_matrix.png" alt="09 ResNet Fine-Tuning Confusion Matrix">
+                            <div class="gallery-item-title"><i class="fas fa-trophy"></i> 09. ResNet FT Matrix (75.0%)</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/defect-detection/multi-class/11_resnet_finetuning_test_predictions.png" alt="11 ResNet Fine-Tuning Predictions">
+                            <div class="gallery-item-title"><i class="fas fa-magic"></i> 11. ResNet FT Predictions</div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <!-- FOOTER NAV -->
+        <div style="text-align: center; margin-top: 4rem;">
+            <a href="../index.html#projects" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Featured Projects
+            </a>
+        </div>
+
     </div>
 
     <footer>
-        <p>&copy; 2026 Said. All rights reserved.</p>
+        <p>&copy; 2026 Mamadou Saidou Cherif Diallo. All rights reserved.</p>
     </footer>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tocLinks = document.querySelectorAll('.toc-link');
+            const sections = document.querySelectorAll('.case-study-content section[id]');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '-15% 0px -65% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        tocLinks.forEach(link => {
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            } else {
+                                link.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
 </body>
 </html>
