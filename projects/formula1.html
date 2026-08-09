@@ -3,69 +3,986 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Details</title>
+    <title>Formula 1 Weather Analysis & Interactive Dashboard — Data Engineering Case Study</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        /* Modern Case Study Styling System */
+        .project-details {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 6rem;
+        }
+
+        .project-header-hero {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(255, 24, 1, 0.08) 0%, rgba(10, 10, 10, 0.9) 100%);
+            border: 1px solid rgba(255, 24, 1, 0.25);
+            border-radius: var(--radius-xl);
+            margin-bottom: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-header-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 24, 1, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .project-header-hero h1 {
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .project-header-hero .hero-badge-strip {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+            margin-top: 1.25rem;
+        }
+
+        .hero-pill {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .hero-pill i {
+            color: #ff2400;
+        }
+
+        /* Two-Column Layout & Sticky TOC Sidebar */
+        .case-study-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2.25rem;
+            align-items: start;
+            margin-top: 1rem;
+        }
+
+        .toc-sidebar {
+            position: sticky;
+            top: 90px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.1rem 0.9rem;
+            max-height: calc(100vh - 110px);
+            overflow-y: auto;
+            box-shadow: var(--shadow-sm);
+            z-index: 10;
+        }
+
+        .toc-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .toc-sidebar::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        .toc-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toc-title i {
+            color: #ff2400;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 0.32rem 0.6rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 5px;
+            border-left: 2px solid transparent;
+            transition: var(--transition);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .toc-link:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .toc-link.active {
+            color: #ff2400;
+            background: rgba(255, 24, 1, 0.08);
+            border-left-color: #ff2400;
+            font-weight: 600;
+        }
+
+        @media (max-width: 1024px) {
+            .case-study-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .toc-sidebar {
+                position: relative;
+                top: 0;
+                max-height: none;
+                margin-bottom: 2rem;
+            }
+
+            .toc-link {
+                white-space: normal;
+            }
+        }
+
+        .section-block {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2.25rem;
+            transition: var(--transition);
+            scroll-margin-top: 100px;
+        }
+
+        .section-block:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-block h2 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .section-block h2 i {
+            color: #ff2400;
+            font-size: 1.3rem;
+        }
+
+        .lead-text {
+            font-size: 1rem;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        /* Highlights Metrics Grid */
+        .highlights-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1rem 0.85rem;
+            text-align: center;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .metric-card:hover {
+            border-color: #ff2400;
+            background: rgba(255, 24, 1, 0.04);
+            transform: translateY(-3px);
+        }
+
+        .metric-icon {
+            font-size: 1.35rem;
+            color: #ff2400;
+            margin-bottom: 0.4rem;
+        }
+
+        .metric-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-value {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        /* Architecture Flow Visuals */
+        .arch-pipeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .arch-step {
+            background: rgba(18, 18, 18, 0.9);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .arch-step:hover {
+            border-color: #ff2400;
+            transform: translateY(-3px);
+        }
+
+        .arch-step-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .arch-step-num {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(255, 24, 1, 0.15);
+            color: #ff2400;
+            font-size: 0.78rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 24, 1, 0.4);
+        }
+
+        .arch-step-icon {
+            font-size: 1.35rem;
+            color: #ff2400;
+        }
+
+        .arch-step h3 {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.4rem;
+        }
+
+        .arch-step p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+            margin: 0;
+        }
+
+        .arch-step-badge {
+            display: inline-block;
+            margin-top: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 4px;
+            font-size: 0.72rem;
+            color: #ff2400;
+            font-family: monospace;
+        }
+
+        /* Skills Badges Grid */
+        .skills-badge-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 0.85rem;
+        }
+
+        .skill-pill {
+            background: rgba(255, 24, 1, 0.06);
+            border: 1px solid rgba(255, 24, 1, 0.25);
+            color: var(--text-primary);
+            padding: 0.4rem 0.85rem;
+            border-radius: 50px;
+            font-size: 0.83rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
+        }
+
+        .skill-pill:hover {
+            background: rgba(255, 24, 1, 0.15);
+            border-color: #ff2400;
+            transform: translateY(-2px);
+        }
+
+        .skill-pill i {
+            color: #ff2400;
+        }
+
+        /* Cards Grid */
+        .decision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+        }
+
+        .decision-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            transition: var(--transition);
+        }
+
+        .decision-card:hover {
+            border-color: #ff2400;
+            background: rgba(255, 24, 1, 0.02);
+        }
+
+        .decision-card h3 {
+            font-size: 1rem;
+            color: #ff2400;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .decision-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        /* Figure Showcase */
+        .figure-box {
+            margin: 1.5rem 0;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .figure-box img, .figure-box video {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .figure-caption {
+            padding: 1rem 1.25rem;
+            background: rgba(18, 18, 18, 0.95);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .figure-caption i {
+            color: #ff2400;
+            margin-top: 0.15rem;
+        }
+
+        .figure-grid-dual {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+            margin: 1.25rem 0;
+        }
+
+        /* Custom Table Styling */
+        .custom-table-wrapper {
+            overflow-x: auto;
+            margin-top: 1.25rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        .custom-table th {
+            background: rgba(255, 24, 1, 0.1);
+            color: var(--text-primary);
+            padding: 0.85rem 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+            font-weight: 700;
+        }
+
+        .custom-table td {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .custom-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Outcome Checklist Card */
+        .outcomes-card {
+            background: rgba(255, 24, 1, 0.04);
+            border: 1px solid rgba(255, 24, 1, 0.25);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.85rem;
+            margin-top: 0.85rem;
+        }
+
+        .outcome-item {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .outcome-item i {
+            color: #ff2400;
+            font-size: 1rem;
+        }
+
+        .video-container-box {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 24, 1, 0.3);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-top: 1.25rem;
+        }
+    </style>
 </head>
 <body>
     <nav>
-        <div class="logo">Portfolio</div>
-        <a href="../index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+        <a href="../index.html" class="logo">MSC<span class="logo-dot">.</span></a>
+        <a href="../index.html#projects" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
     </nav>
 
     <div class="project-details">
-        <header class="project-header" data-aos="fade-down">
-            <h1>Analysis of the Influence of Weather on Pilot Performance</h1>
-            <div class="project-meta">
-                <span class="category">Data Analysis</span>
-                <span class="date">2025</span>
+
+        <!-- HERO HEADER -->
+        <header class="project-header-hero" data-aos="fade-down">
+            <div class="hero-pill mb-3"><i class="fas fa-flag-checkered"></i> Data Engineering & Analysis Case Study</div>
+            <h1>Formula 1 Weather Analysis</h1>
+            <p class="lead-text" style="max-width: 820px; margin: 0 auto; text-align: center;">
+                Data pipeline and statistical analysis studying minute-by-minute weather impacts (air/track temperature, humidity, pressure, wind) on Formula 1 driver performance and reliability across the 2018–2024 seasons (with an in-depth focus on 2018). Deployed as an interactive Streamlit web application.
+            </p>
+            <div class="hero-badge-strip">
+                <span class="hero-pill"><i class="fas fa-calendar"></i> 2018 - 2024</span>
+                <span class="hero-pill"><i class="fas fa-chart-bar"></i> Data Engineering & EDA</span>
+                <span class="hero-pill"><i class="fas fa-database"></i> FastF1 API & Ergast DB</span>
+                <span class="hero-pill"><i class="fas fa-desktop"></i> Streamlit & Plotly</span>
+            </div>
+            
+            <div style="display: flex; justify-content: center; gap: 0.85rem; flex-wrap: wrap; margin-top: 1.75rem;">
+                <a href="https://f1-weather-analysis-v1.streamlit.app/" class="btn btn-primary" target="_blank" rel="noopener" style="background: #ff2400; border-color: #ff2400;">
+                    <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+                <a href="https://github.com/youngSaid21/Analyse-de-donnees-Formula-One" class="btn btn-secondary" target="_blank" rel="noopener">
+                    <i class="fab fa-github"></i> GitHub Repository
+                </a>
+                <a href="#video-demo" class="btn btn-secondary">
+                    <i class="fas fa-play-circle"></i> Video Showcase
+                </a>
             </div>
         </header>
 
-        <section class="project-content">
-            <div class="project-description" data-aos="fade-up">
-                <h2>Description</h2>
-                <p>The project focuses on analyzing the impact of weather conditions on the performance of Formula 1 drivers during the 2018 season. It is structured into several key components. The goal is to provide insights into how weather affects driver performance and to identify trends for future analyses.</p>
-            </div>
+        <!-- LAYOUT GRID: SIDEBAR TOC + MAIN CONTENT -->
+        <div class="case-study-layout">
 
-            <div class="project-tools" data-aos="fade-up">
-                <h2>Tools & Technologies</h2>
-                <div class="tools-grid">
-                    <span class="tool">Pandas</span>
-                    <span class="tool">Numpy</span>
-                    <span class="tool">Matplotlib</span>
-                    <span class="tool">Seaborn</span>
-                    <span class="tool">FastF1</span>
-                    <span class="tool">Streamlit</span>
-                    <!-- Add more tools as needed -->
-                </div>
-            </div>
+            <!-- LEFT STICKY TABLE OF CONTENTS -->
+            <aside class="toc-sidebar" data-aos="fade-right">
+                <div class="toc-title"><i class="fas fa-list-ul"></i> Table of Contents</div>
+                <ul class="toc-list">
+                    <li><a href="#highlights" class="toc-link">01. Highlights & Exec Summary</a></li>
+                    <li><a href="#contributions" class="toc-link">02. Contributions & Stack</a></li>
+                    <li><a href="#video-demo" class="toc-link">03. Video Demonstration</a></li>
+                    <li><a href="#problem-data" class="toc-link">04. Problem & Data Sources</a></li>
+                    <li><a href="#pipeline" class="toc-link">05. Data Processing Pipeline</a></li>
+                    <li><a href="#architecture" class="toc-link">06. System Architecture</a></li>
+                    <li><a href="#insights" class="toc-link">07. Key Analytical Insights</a></li>
+                    <li><a href="#dashboard" class="toc-link">08. Dashboard Features</a></li>
+                    <li><a href="#outcomes" class="toc-link">09. Outcomes & Resources</a></li>
+                </ul>
+            </aside>
 
-            <div class="project-gallery" data-aos="fade-up">
-                <h2>Gallery</h2>
-                <div class="gallery-grid">
-                    <img src="../images/dashbord.png" alt="Project Screenshot 1">
-                    <img src="../images/drivers.png" alt="Project Screenshot 2">
-                </div><br>
-                <div class="gallery-grid">
-                    <img src="../images/australian_grand_prix.png" alt="Project Screenshot 1">
-                    <img src="../images/Weather.png" alt="Project Screenshot 2">
-                </div>
-            </div>
+            <!-- MAIN CASE STUDY CONTENT -->
+            <main class="case-study-content">
 
-            <div class="project-links" data-aos="fade-up">
-                <a href="https://f1-weather-analysis-v1.streamlit.app/" class="btn primary" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                <a href="https://github.com/youngSaid21/Analyse-de-donnees-Formula-One" class="btn secondary" target="_blank"><i class="fab fa-github"></i> View Code</a>
-            </div>
-        </section>
+                <!-- 01. PROJECT HIGHLIGHTS & EXECUTIVE SUMMARY -->
+                <section id="highlights" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-star"></i> Project Highlights</h2>
+                    <div class="highlights-metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <div class="metric-label">Extracted Scope</div>
+                            <div class="metric-value">2018 - 2024</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-flag-checkered"></i></div>
+                            <div class="metric-label">In-Depth Focus</div>
+                            <div class="metric-value">2018 (21 GPs)</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-cloud-sun-rain"></i></div>
+                            <div class="metric-label">Weather Metrics</div>
+                            <div class="metric-value">2,216 Weather Records</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-users"></i></div>
+                            <div class="metric-label">Study Scope</div>
+                            <div class="metric-value">20 Drivers / 21 Grands Prix</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-code-branch"></i></div>
+                            <div class="metric-label">Tech Stack</div>
+                            <div class="metric-value">Python / FastF1</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-desktop"></i></div>
+                            <div class="metric-label">Web App</div>
+                            <div class="metric-value">3 Streamlit Views</div>
+                        </div>
+                    </div>
+
+                    <!-- EXECUTIVE SUMMARY -->
+                    <div style="margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--border);">
+                        <h3 style="color: #ff2400; font-size: 1.1rem; margin-bottom: 0.6rem;">
+                            <i class="fas fa-file-alt"></i> Executive Summary
+                        </h3>
+                        <p class="lead-text">
+                            This case study investigates the statistical relationships between minute-by-minute weather parameters (air/track temperature, humidity, atmospheric pressure, wind dynamics) and Formula 1 racing performance across the 2018–2024 seasons (focusing specifically on the 21 Grands Prix of 2018). By unifying telemetry streams from the <code>FastF1</code> API and historical data from the <code>Ergast</code> database, 2,216 minute-level weather records extracted for the 2018 deep-dive, processed, and deployed into an interactive 3-module <code>Streamlit</code> web dashboard featuring <code>Plotly</code> visual telemetry, <code>Folium</code> circuit maps, and polar <code>WindRose</code> dynamics.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 02. MAIN CONTRIBUTIONS & SKILLS -->
+                <section id="contributions" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-user-check"></i> Main Contributions</h2>
+                    <div class="decision-grid">
+                        <div class="decision-card">
+                            <h3><i class="fas fa-download"></i> 1. FastF1 Telemetry Mining</h3>
+                            <p>Automated minute-by-minute weather data extraction (air/track temp, pressure, humidity, wind) across 2018–2024 F1 sessions via FastF1 API.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-database"></i> 2. Data Cleaning & Reconciliation</h3>
+                            <p>Merged Ergast historical CSV tables with FastF1 telemetry streams, resolving schema differences and harmonizing driver, race, and status identifiers.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-folder-tree"></i> 3. Seasonal Data Processing</h3>
+                            <p>Engineered an automated seasonal data splitter creating lightweight CSVs (`Cleaned_Data_Saison/`) to optimize Streamlit app memory and loading speed.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-chart-pie"></i> 4. Statistical Multivariate EDA</h3>
+                            <p>Conducted bivariate and multivariate EDA identifying statistical correlations between environmental metrics, incident rates, and engine failure thresholds.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-desktop"></i> 5. Streamlit Dashboard Deployment</h3>
+                            <p>Built and deployed a 3-page interactive Streamlit dashboard featuring Plotly visual telemetry, Folium circuit maps, and polar WindRose dynamics.</p>
+                        </div>
+                    </div>
+
+                    <!-- TECHNICAL SKILLS BADGES -->
+                    <h3 style="color: var(--text-primary); margin-top: 1.5rem; font-size: 1.1rem;">Technical Stack</h3>
+                    <div class="skills-badge-grid">
+                        <span class="skill-pill"><i class="fab fa-python"></i> Python 3.11+</span>
+                        <span class="skill-pill"><i class="fas fa-plug"></i> FastF1 Telemetry API</span>
+                        <span class="skill-pill"><i class="fas fa-database"></i> Ergast F1 Relational DB</span>
+                        <span class="skill-pill"><i class="fas fa-table"></i> Pandas & NumPy</span>
+                        <span class="skill-pill"><i class="fas fa-calculator"></i> SciPy Statistical EDA</span>
+                        <span class="skill-pill"><i class="fas fa-chart-bar"></i> Plotly Express & Graph Objects</span>
+                        <span class="skill-pill"><i class="fas fa-map-marked-alt"></i> Folium Maps</span>
+                        <span class="skill-pill"><i class="fas fa-desktop"></i> Streamlit Framework</span>
+                        <span class="skill-pill"><i class="fas fa-cogs"></i> Data Pipeline & Cleaning</span>
+                    </div>
+                </section>
+
+                <!-- 03. VIDEO DEMONSTRATION -->
+                <section id="video-demo" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-video"></i> Dashboard Video Showcase</h2>
+
+                    <!-- Interactive Video Player Showcase -->
+                    <div class="video-container-box">
+                        <video id="f1-demo-video" controls poster="../images/dashbord.png" style="width: 100%; display: block; border-radius: var(--radius-lg);">
+                            <source src="../videos/f1-video.mp4" type="video/mp4">
+                            Your browser does not support HTML5 video.
+                        </video>
+                        <div class="figure-caption">
+                            <i class="fas fa-info-circle"></i>
+                            <span><strong>Streamlit Dashboard Demo:</strong> Showcasing Master Overview KPIs, Grand Prix real-time weather monitoring with WindRose dynamics, and Driver wet/dry performance tracking.</span>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: center; gap: 0.85rem; flex-wrap: wrap; margin-top: 1.25rem;">
+                        <a href="https://f1-weather-analysis-v1.streamlit.app/" target="_blank" rel="noopener" class="btn btn-primary" style="background: #ff2400; border-color: #ff2400;">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="https://github.com/youngSaid21/Analyse-de-donnees-Formula-One" target="_blank" rel="noopener" class="btn btn-secondary">
+                            <i class="fab fa-github"></i> GitHub Repository
+                        </a>
+                    </div>
+                </section>
+
+                <!-- 04. PROBLEM & DATA SOURCES -->
+                <section id="problem-data" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-bullseye"></i> Problem Statement & Data Sources</h2>
+                    <p class="lead-text">
+                        In Formula 1, environmental variations (temperature, pressure, precipitation) influence tire operating windows, cooling efficiency, and accident frequency. Data was ingested from two complementary sources:
+                    </p>
+
+                    <div class="custom-table-wrapper">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Data Source</th>
+                                    <th>Data Type & Contents</th>
+                                    <th>Extracted Parameters</th>
+                                    <th>Scope</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>FastF1 API</strong></td>
+                                    <td>Minute-by-minute weather & telemetry logs</td>
+                                    <td><code>AirTemp</code>, <code>TrackTemp</code>, <code>Humidity</code>, <code>Pressure</code>, <code>WindSpeed</code>, <code>WindDirection</code>, <code>Rainfall</code></td>
+                                    <td>2018–2024 (2,216 records in 2018)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ergast DB</strong></td>
+                                    <td>Historical relational CSV database</td>
+                                    <td><code>circuits</code>, <code>drivers</code>, <code>races</code>, <code>results</code>, <code>status</code>, <code>lap_times</code></td>
+                                    <td>Standings, status codes, lap times, coordinates</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 05. DATA PROCESSING PIPELINE -->
+                <section id="pipeline" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-filter"></i> Data Processing Pipeline</h2>
+                    <p class="lead-text">
+                        The data engineering and analysis pipeline transitions sequentially from raw API ingestion to web deployment:
+                    </p>
+
+                    <div class="custom-table-wrapper">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Pipeline Phase</th>
+                                    <th>Core Responsibilities</th>
+                                    <th>Primary Outputs</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>1. Ingestion</strong></td>
+                                    <td>API connection to FastF1, iterating across 2018–2024 sessions to harvest minute-level weather readings.</td>
+                                    <td><code>F1 Weather(2018 - 2024).csv</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>2. Cleaning & Reconciliation</strong></td>
+                                    <td>Imputation of missing values, datetime parsing, ID reconciliation between Ergast DB and FastF1 schemas.</td>
+                                    <td><code>meteo_cleaned.csv</code>, <code>resultat_cleaned.csv</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>3. Seasonal Partitioning</strong></td>
+                                    <td>Splitting master datasets into seasonal CSV subsets to optimize memory consumption and app response time.</td>
+                                    <td><code>Cleaned_Data_Saison/Cleaned_Data_2018.csv</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>4. Statistical EDA</strong></td>
+                                    <td>Multivariate correlation analysis examining environmental metrics vs incident rates and engine failure thresholds.</td>
+                                    <td>Bivariate charts & correlation matrices</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>5. Dashboard Deployment</strong></td>
+                                    <td>Building interactive multi-page Streamlit views with Plotly charts and Folium circuit maps.</td>
+                                    <td>Streamlit Cloud Deployment</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 06. SYSTEM ARCHITECTURE -->
+                <section id="architecture" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-sitemap"></i> System Architecture</h2>
+
+                    <div class="arch-pipeline">
+                        <div class="arch-step">
+                            <div class="arch-step-header">
+                                <span class="arch-step-num">1</span>
+                                <i class="fas fa-plug arch-step-icon"></i>
+                            </div>
+                            <h3>Data Sources</h3>
+                            <p>FastF1 API minute-by-minute weather telemetry & Ergast relational CSVs.</p>
+                            <span class="arch-step-badge">FastF1 & Ergast DB</span>
+                        </div>
+                        <div class="arch-step">
+                            <div class="arch-step-header">
+                                <span class="arch-step-num">2</span>
+                                <i class="fas fa-cogs arch-step-icon"></i>
+                            </div>
+                            <h3>Processing</h3>
+                            <p>ID reconciliation, outlier handling, datetime parsing, missing value imputation.</p>
+                            <span class="arch-step-badge">Data Cleaning</span>
+                        </div>
+                        <div class="arch-step">
+                            <div class="arch-step-header">
+                                <span class="arch-step-num">3</span>
+                                <i class="fas fa-folder-tree arch-step-icon"></i>
+                            </div>
+                            <h3>Partitioning</h3>
+                            <p>Splitting master datasets into season-specific CSV files (`Cleaned_Data_Saison/`).</p>
+                            <span class="arch-step-badge">Seasonal Splitter</span>
+                        </div>
+                        <div class="arch-step">
+                            <div class="arch-step-header">
+                                <span class="arch-step-num">4</span>
+                                <i class="fas fa-chart-line arch-step-icon"></i>
+                            </div>
+                            <h3>Statistical EDA</h3>
+                            <p>Multivariate correlation analysis between weather parameters and race outcomes.</p>
+                            <span class="arch-step-badge">Multivariate Analysis</span>
+                        </div>
+                        <div class="arch-step">
+                            <div class="arch-step-header">
+                                <span class="arch-step-num">5</span>
+                                <i class="fas fa-desktop arch-step-icon"></i>
+                            </div>
+                            <h3>Streamlit App</h3>
+                            <p>Interactive web app with Plotly telemetry, Folium maps & WindRose dynamics.</p>
+                            <span class="arch-step-badge">Streamlit Cloud</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 07. KEY ANALYTICAL INSIGHTS -->
+                <section id="insights" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-lightbulb"></i> Key Analytical Insights (2018 Season Focus)</h2>
+                    <p class="lead-text">
+                        Observational findings from multivariate statistical analysis across the 21 Grands Prix of 2018:
+                    </p>
+
+                    <div class="decision-grid">
+                        <div class="decision-card">
+                            <h3><i class="fas fa-temperature-low"></i> 1. Thermal Window & Accidents</h3>
+                            <p><strong>50% of accidents</strong> were observed when ambient air temperature ranged between <strong>17°C and 18°C</strong>, a range associated with tires failing to reach their optimal thermal operating window.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-road"></i> 2. TrackTemp Critical Zone</h3>
+                            <p>An observed concentration of driving incidents occurred when track surface temperature reached <strong>25°C to 30°C</strong>, representing a transition zone for tire thermal degradation under lateral load.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-tachometer-alt"></i> 3. Atmospheric Pressure Correlation</h3>
+                            <p><strong>50% of crashes</strong> correlated with low atmospheric pressure between <strong>967 hPa and 1000 hPa</strong>, weather conditions typically associated with passing depressions, wind gusts, and sudden rain.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-fire"></i> 4. Hybrid Engine Reliability Threshold</h3>
+                            <p><strong>75% of engine failures</strong> (MGU-K / MGU-H power units) occurred when air temperature reached <strong>23°C to 32°C</strong>, pointing to cooling constraints under elevated ambient heat.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-cloud-showers-heavy"></i> 5. Wet Track Mechanical Stress</h3>
+                            <p>A higher incidence of brake and electrical issues was observed during wet races, coinciding with water intake into cooling ducts and intense energy recovery demands.</p>
+                        </div>
+                        <div class="decision-card">
+                            <h3><i class="fas fa-trophy"></i> 6. Wet vs Dry Driver Performance Analysis</h3>
+                            <p>Comparative analysis showed notable variances in points accumulation on wet tracks—highlighting, for instance, Lewis Hamilton's strong scoring efficiency under rain conditions.</p>
+                        </div>
+                    </div>
+
+                    <!-- In-line Visual Artifacts -->
+                    <div class="figure-grid-dual" style="margin-top: 1.5rem;">
+                        <div class="figure-box">
+                            <img loading="lazy" decoding="async" src="../images/dashbord.png" alt="Streamlit Master Dashboard Overview">
+                            <div class="figure-caption">
+                                <i class="fas fa-chart-bar"></i>
+                                <span><strong>Figure 1 (Master Overview):</strong> KPI gauges (21 GPs, 20 drivers, avg race time), interactive Folium circuit map, points system, and standings.</span>
+                            </div>
+                        </div>
+                        <div class="figure-box">
+                            <img loading="lazy" decoding="async" src="../images/drivers.png" alt="Driver Profile View">
+                            <div class="figure-caption">
+                                <i class="fas fa-user-ninja"></i>
+                                <span><strong>Figure 2 (Driver Profile):</strong> Cumulative points progression curve over 21 races, driver identity card, and dry ☀️ vs wet 🌧️ points breakdown.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="figure-grid-dual">
+                        <div class="figure-box">
+                            <img loading="lazy" decoding="async" src="../images/australian_grand_prix.png" alt="Grand Prix Detail View">
+                            <div class="figure-caption">
+                                <i class="fas fa-flag-checkered"></i>
+                                <span><strong>Figure 3 (Grand Prix Detail):</strong> Race metrics, winner details, real-time air/track temp curves, and WindRose polar wind dynamics.</span>
+                            </div>
+                        </div>
+                        <div class="figure-box">
+                            <img loading="lazy" decoding="async" src="../images/Weather.png" alt="Real-time Weather & WindRose Chart">
+                            <div class="figure-caption">
+                                <i class="fas fa-compass"></i>
+                                <span><strong>Figure 4 (Weather Metrics & WindRose):</strong> Minute-by-minute Air/Track temperature evolution and Plotly polar bar chart (`go.Barpolar`) mapping wind vector dynamics.</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 08. DASHBOARD FEATURES -->
+                <section id="dashboard" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-desktop"></i> Dashboard Features</h2>
+                    <div style="margin-top: 1rem;">
+                        <ul class="education-bullets">
+                            <li><strong>Master Overview (`Dashboard.py`):</strong> Displays overall season KPIs, interactive Folium circuit map (`folium.Map` + `MarkerCluster`), 2018 standings bar chart, and wet vs dry points comparison.</li>
+                            <li><strong>Grand Prix Detail (`pages/Courses.py`):</strong> Enables per-race filtering across all 21 GPs with winner stats, real-time temperature plots, and polar <code>WindRose</code> charts (`go.Barpolar`).</li>
+                            <li><strong>Driver Profile (`pages/Pilotes.py`):</strong> Tracks individual driver standings, cumulative points progression curves, and wet vs dry points accumulation comparison.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 09. OUTCOMES & RESOURCES -->
+                <section id="outcomes" class="section-block" data-aos="fade-up">
+                    <h2><i class="fas fa-trophy"></i> Outcomes & Resources</h2>
+
+                    <div class="outcomes-card">
+                        <h3 style="color: #ff2400; font-size: 1.05rem; margin-bottom: 0.6rem;">
+                            <i class="fas fa-check-circle"></i> Accomplishments Checklist
+                        </h3>
+                        <div class="outcomes-grid">
+                            <div class="outcome-item"><i class="fas fa-check"></i> 2,216 minuted weather records extracted</div>
+                            <div class="outcome-item"><i class="fas fa-check"></i> 7 seasons processed (2018–2024)</div>
+                            <div class="outcome-item"><i class="fas fa-check"></i> 21 Grands Prix analyzed in 2018</div>
+                            <div class="outcome-item"><i class="fas fa-check"></i> 5 sequential ETL notebooks executed</div>
+                            <div class="outcome-item"><i class="fas fa-check"></i> 3-module Streamlit web dashboard</div>
+                            <div class="outcome-item"><i class="fas fa-check"></i> Deployed on Streamlit Cloud</div>
+                        </div>
+                    </div>
+
+                    <div class="decision-grid" style="margin-top: 1.5rem;">
+                        <a href="https://f1-weather-analysis-v1.streamlit.app/" target="_blank" rel="noopener" style="text-decoration: none;">
+                            <div class="decision-card" style="border-color: #ff2400; background: rgba(255, 24, 1, 0.03);">
+                                <h3><i class="fas fa-external-link-alt"></i> Interactive Live Streamlit App</h3>
+                                <p>Access the live deployed multi-page Streamlit application to explore real-time weather plots, circuits, and driver stats.</p>
+                            </div>
+                        </a>
+                        <a href="https://github.com/youngSaid21/Analyse-de-donnees-Formula-One" target="_blank" rel="noopener" style="text-decoration: none;">
+                            <div class="decision-card" style="border-color: #ff2400; background: rgba(255, 24, 1, 0.03);">
+                                <h3><i class="fab fa-github"></i> Official GitHub Repository</h3>
+                                <p>Inspect the complete Python codebase, 5 Jupyter Notebooks, raw & cleaned datasets, and Streamlit scripts.</p>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <!-- FOOTER NAV -->
+        <div style="text-align: center; margin-top: 3.5rem;">
+            <a href="../index.html#projects" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Featured Projects
+            </a>
+        </div>
+
     </div>
 
     <footer>
-        <p>&copy; 2025 Said. All rights reserved.</p>
+        <p>&copy; 2026 Mamadou Saidou Cherif Diallo. All rights reserved.</p>
     </footer>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="../js/main.js"></script>
+    <script>
+        const DEMO_VIDEO_PATH = "../videos/f1-video.mp4";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const tocLinks = document.querySelectorAll('.toc-link');
+            const sections = document.querySelectorAll('.case-study-content section[id]');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '-15% 0px -65% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        tocLinks.forEach(link => {
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            } else {
+                                link.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
 </body>
 </html>
