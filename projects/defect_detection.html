@@ -646,7 +646,7 @@
                     <i class="fas fa-laptop-code"></i> Colab (Multi-Class Anomaly)
                 </a>
                 <a href="#gallery-section" class="btn btn-secondary">
-                    <i class="fas fa-images"></i> 23 Visual Artifacts
+                    <i class="fas fa-images"></i> 22 Visual Artifacts
                 </a>
             </div>
         </header>
@@ -674,7 +674,7 @@
                     <li><a href="#limitations" class="toc-link">14. Project Limitations</a></li>
                     <li><a href="#conclusion" class="toc-link">15. Conclusion & Synthesis</a></li>
                     <li><a href="#resources" class="toc-link">16. Resources & Links</a></li>
-                    <li><a href="#gallery-section" class="toc-link">17. Visual Gallery (23 Items)</a></li>
+                    <li><a href="#gallery-section" class="toc-link">17. Visual Gallery (22 Items)</a></li>
                 </ul>
             </aside>
 
@@ -757,7 +757,7 @@
                         </div>
                         <div class="decision-card">
                             <h3><i class="fas fa-chart-line"></i> Experimental Visualizations</h3>
-                            <p>Produced 23 comprehensive experimental figures, loss curves, confusion matrices, and test sample inspection grids.</p>
+                            <p>Produced 22 comprehensive experimental figures, loss curves, confusion matrices, and test sample inspection grids.</p>
                         </div>
                     </div>
 
@@ -1242,7 +1242,7 @@
                         <div style="margin-top: 1.5rem; background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
                             <h4 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 0.5rem;">Baseline 1 — Custom CNN From Scratch (Binary)</h4>
                             <p class="lead-text">
-                                <strong>Hypothesis & Setup:</strong> A lightweight 3-block CNN was trained from scratch for 20 epochs using Adam (<code>1e-3</code>) to establish a minimal baseline.
+                                <strong>Hypothesis & Setup:</strong> A lightweight 3-block CNN was trained from scratch for 50 epochs using Adam (<code>1e-3</code>) to establish a minimal baseline.
                             </p>
                             <p class="lead-text" style="margin-top: 0.5rem;">
                                 <strong>Performance Analysis:</strong> Achieved <strong>97.2% Accuracy</strong> (35/36 test samples correct). While effective for coarse binary separation, the custom filters exhibited minor classification noise on subtle surface cracks.
@@ -1253,7 +1253,7 @@
                                     <img loading="lazy" decoding="async" src="../images/defect-detection/binary/CNN Training Curves.png" alt="CNN Training Curves">
                                     <div class="figure-caption">
                                         <i class="fas fa-chart-line"></i>
-                                        <span><strong>Figure 5 (CNN Binary Training Curves):</strong> Figure 5 illustrates the convergence trajectory of the custom CNN over 20 epochs. Training loss decreases steadily, but validation accuracy plateaus around epoch 12, demonstrating the limits of training custom convolutional filters from scratch on small datasets.</span>
+                                        <span><strong>Figure 5 (CNN Binary Training Curves):</strong> Figure 5 illustrates the convergence trajectory of the custom CNN over 50 epochs. Training loss decreases steadily, but validation accuracy plateaus around epoch 12, demonstrating the limits of training custom convolutional filters from scratch on small datasets.</span>
                                     </div>
                                 </div>
                                 <div class="figure-box">
@@ -1277,10 +1277,10 @@
                         <div style="margin-top: 2rem; background: rgba(0, 255, 157, 0.02); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid rgba(0, 255, 157, 0.2);">
                             <h4 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 0.5rem;">Final Model — ResNet50 Transfer Learning (Binary)</h4>
                             <p class="lead-text">
-                                <strong>Hypothesis & Setup:</strong> Leveraging pre-trained ImageNet representations via ResNet50 Transfer Learning for 15 epochs.
+                                <strong>Hypothesis & Setup:</strong> Leveraging pre-trained ImageNet representations via ResNet50 Transfer Learning for 20 epochs.
                             </p>
                             <p class="lead-text" style="margin-top: 0.5rem;">
-                                <strong>Performance Analysis:</strong> Reached <strong>100.0% Accuracy</strong> on the test set (36/36 correct) by epoch 15, eliminating false safe approvals.
+                                <strong>Performance Analysis:</strong> Reached <strong>100.0% Accuracy</strong> on the test set (36/36 correct) by epoch 20, eliminating false safe approvals.
                             </p>
 
                             <div class="figure-grid-dual">
@@ -1295,7 +1295,7 @@
                                     <img loading="lazy" decoding="async" src="../images/defect-detection/binary/ResNet50 Training Curves (Accuracy).png" alt="ResNet50 Accuracy Curve">
                                     <div class="figure-caption">
                                         <i class="fas fa-chart-line"></i>
-                                        <span><strong>Figure 9 (ResNet50 Binary Accuracy Trajectory):</strong> Figure 9 tracks validation accuracy reaching 100.0% by epoch 15, confirming rapid convergence enabled by pre-trained residual feature extractors.</span>
+                                        <span><strong>Figure 9 (ResNet50 Binary Accuracy Trajectory):</strong> Figure 9 tracks validation accuracy reaching 100.0% by epoch 20, confirming rapid convergence enabled by pre-trained residual feature extractors.</span>
                                     </div>
                                 </div>
                             </div>
@@ -1317,20 +1317,11 @@
                                 </div>
                             </div>
 
-                            <div class="figure-grid-dual">
-                                <div class="figure-box">
-                                    <img loading="lazy" decoding="async" src="../images/defect-detection/binary/Metrics Comparison (Accuracy).png" alt="Metrics Comparison">
-                                    <div class="figure-caption">
-                                        <i class="fas fa-balance-scale"></i>
-                                        <span><strong>Figure 12 (Binary Accuracy Comparison Bar Chart):</strong> Figure 12 contrasts the performance gain between the Custom CNN (97.2%) and ResNet50 Transfer Learning (100.0%), underscoring the superiority of pre-trained representations.</span>
-                                    </div>
-                                </div>
-                                <div class="figure-box">
-                                    <img loading="lazy" decoding="async" src="../images/defect-detection/binary/Model Comparison (Matrix table).png" alt="Model Comparison Table">
-                                    <div class="figure-caption">
-                                        <i class="fas fa-table"></i>
-                                        <span><strong>Figure 13 (Binary Metrics Summary Table):</strong> Figure 13 synthesizes Precision, Recall, and F1-Score metrics across binary models, confirming optimal classification performance on the test set.</span>
-                                    </div>
+                            <div class="figure-box">
+                                <img loading="lazy" decoding="async" src="../images/defect-detection/binary/Metrics Comparison (Accuracy).png" alt="Metrics Comparison">
+                                <div class="figure-caption">
+                                    <i class="fas fa-balance-scale"></i>
+                                    <span><strong>Figure 12 (Binary Accuracy Comparison Bar Chart):</strong> Figure 12 contrasts the performance gain between the Custom CNN (97.2%) and ResNet50 Transfer Learning (100.0%), underscoring the superiority of pre-trained representations.</span>
                                 </div>
                             </div>
                         </div>
@@ -1349,7 +1340,7 @@
                         <div style="margin-top: 1.5rem; background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
                             <h4 style="color: #ff4d4d; font-size: 1.1rem; margin-bottom: 0.5rem;">Phase 1 — Custom CNN From Scratch (Multi-Class)</h4>
                             <p class="lead-text">
-                                <strong>Hypothesis & Limits:</strong> Training a custom CNN from scratch on 39 images for 20 epochs. As expected, random filter initialization failed to learn generic representations, resulting in severe overfitting and a random-chance accuracy of <strong>33.3%</strong>.
+                                <strong>Hypothesis & Limits:</strong> Training a custom CNN from scratch on 39 images for 30 epochs. As expected, random filter initialization failed to learn generic representations, resulting in severe overfitting and a random-chance accuracy of <strong>33.3%</strong>.
                             </p>
 
                             <div class="figure-grid-dual">
@@ -1357,14 +1348,14 @@
                                     <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/03_cnn_simple_confusion_curves.png" alt="CNN Multi-Class Curves">
                                     <div class="figure-caption">
                                         <i class="fas fa-chart-line"></i>
-                                        <span><strong>Figure 14 (CNN Multi-Class Learning Curves):</strong> Figure 14 illustrates severe train/validation divergence. Training loss decays while validation loss explodes, proving that 39 images are insufficient to train random weights from scratch.</span>
+                                        <span><strong>Figure 13 (CNN Multi-Class Learning Curves):</strong> Figure 13 illustrates severe train/validation divergence. Training loss decays while validation loss explodes, proving that 39 images are insufficient to train random weights from scratch.</span>
                                     </div>
                                 </div>
                                 <div class="figure-box">
                                     <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/04_cnn_simple_confusion_matrix.png" alt="CNN Multi-Class Confusion Matrix">
                                     <div class="figure-caption">
                                         <i class="fas fa-times-circle"></i>
-                                        <span><strong>Figure 15 (CNN Multi-Class Confusion Matrix):</strong> Figure 15 reveals severe misclassifications across defect categories, yielding a 33.3% accuracy baseline equivalent to random selection.</span>
+                                        <span><strong>Figure 14 (CNN Multi-Class Confusion Matrix):</strong> Figure 14 reveals severe misclassifications across defect categories, yielding a 33.3% accuracy baseline equivalent to random selection.</span>
                                     </div>
                                 </div>
                             </div>
@@ -1372,7 +1363,7 @@
                                 <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/05_cnn_simple_test_predictions.png" alt="CNN Multi-Class Predictions">
                                 <div class="figure-caption">
                                     <i class="fas fa-tasks"></i>
-                                    <span><strong>Figure 16 (CNN Multi-Class Test Predictions):</strong> Figure 16 highlights widespread prediction errors across test samples, confirming the architectural incapacity of uninitialized CNNs on ultra-small datasets.</span>
+                                    <span><strong>Figure 15 (CNN Multi-Class Test Predictions):</strong> Figure 15 highlights widespread prediction errors across test samples, confirming the architectural incapacity of uninitialized CNNs on ultra-small datasets.</span>
                                 </div>
                             </div>
                         </div>
@@ -1381,7 +1372,7 @@
                         <div style="margin-top: 2rem; background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
                             <h4 style="color: #ffaa00; font-size: 1.1rem; margin-bottom: 0.5rem;">Phase 2 — ResNet50 Feature Extraction</h4>
                             <p class="lead-text">
-                                <strong>Hypothesis & Gains:</strong> Freezing the ImageNet backbone and training only the linear classifier head for 25 epochs using Adam (<code>1e-3</code>). Accuracy doubled from 33.3% to <strong>66.7%</strong> (+33.4% boost), demonstrating the necessity of pre-trained feature representations on constrained datasets.
+                                <strong>Hypothesis & Gains:</strong> Freezing the ImageNet backbone and training only the linear classifier head for 30 epochs using Adam (<code>1e-3</code>). Accuracy doubled from 33.3% to <strong>66.7%</strong> (+33.4% boost), demonstrating the necessity of pre-trained feature representations on constrained datasets.
                             </p>
 
                             <div class="figure-grid-dual">
@@ -1389,14 +1380,14 @@
                                     <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/06_resnet_feature_extraction_curves.png" alt="ResNet FE Curves">
                                     <div class="figure-caption">
                                         <i class="fas fa-chart-line"></i>
-                                        <span><strong>Figure 17 (ResNet FE Curves):</strong> Figure 17 shows stabilized validation loss curves resulting from backbone freezing, preventing overfitting while optimizing the classification head.</span>
+                                        <span><strong>Figure 16 (ResNet FE Curves):</strong> Figure 16 shows stabilized validation loss curves resulting from backbone freezing, preventing overfitting while optimizing the classification head.</span>
                                     </div>
                                 </div>
                                 <div class="figure-box">
                                     <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/07_resnet_feature_extraction_confusion_matrix.png" alt="ResNet FE Confusion Matrix">
                                     <div class="figure-caption">
                                         <i class="fas fa-forward"></i>
-                                        <span><strong>Figure 18 (ResNet FE Confusion Matrix):</strong> Figure 18 demonstrates a significant accuracy increase to 66.7%, with confusion matrix diagonal elements showing strong category separation.</span>
+                                        <span><strong>Figure 17 (ResNet FE Confusion Matrix):</strong> Figure 17 demonstrates a significant accuracy increase to 66.7%, with confusion matrix diagonal elements showing strong category separation.</span>
                                     </div>
                                 </div>
                             </div>
@@ -1404,7 +1395,7 @@
                                 <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/08_resnet_feature_extraction_test_predictions.png" alt="ResNet FE Predictions">
                                 <div class="figure-caption">
                                     <i class="fas fa-check"></i>
-                                    <span><strong>Figure 19 (ResNet FE Test Predictions):</strong> Figure 19 displays test predictions showing correct identification on major defect categories, though minor confusion persists on subtle micro-cracks.</span>
+                                    <span><strong>Figure 18 (ResNet FE Test Predictions):</strong> Figure 18 displays test predictions showing correct identification on major defect categories, though minor confusion persists on subtle micro-cracks.</span>
                                 </div>
                             </div>
                         </div>
@@ -1413,7 +1404,7 @@
                         <div style="margin-top: 2rem; background: rgba(0, 255, 157, 0.02); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid rgba(0, 255, 157, 0.2);">
                             <h4 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 0.5rem;">Phase 3 — ResNet50 Full Fine-Tuning</h4>
                             <p class="lead-text">
-                                <strong>Hypothesis & Optimal Result:</strong> Unfreezing all 50 layers and fine-tuning end-to-end for 25 epochs at a low learning rate ($10^{-4}$). This enabled deep convolutional kernels to adapt specifically to glass surface micro-anomalies, achieving an optimal Multi-Class <strong>Accuracy of 75.0%</strong> (Macro F1 = 0.74), representing an +8.3% increase over Feature Extraction.
+                                <strong>Hypothesis & Optimal Result:</strong> Unfreezing all 50 layers and fine-tuning end-to-end for 30 epochs at a low learning rate ($10^{-4}$). This enabled deep convolutional kernels to adapt specifically to glass surface micro-anomalies, achieving an optimal Multi-Class <strong>Accuracy of 75.0%</strong> (Macro F1 = 0.74), representing an +8.3% increase over Feature Extraction.
                             </p>
 
                             <div class="figure-grid-dual">
@@ -1421,14 +1412,14 @@
                                     <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/10_resnet_finetuning_curves.png" alt="ResNet FT Curves">
                                     <div class="figure-caption">
                                         <i class="fas fa-chart-line"></i>
-                                        <span><strong>Figure 20 (ResNet FT Curves):</strong> Figure 20 demonstrates optimal loss convergence achieved through low-learning-rate fine-tuning, allowing deep layers to adapt without destroying ImageNet features.</span>
+                                        <span><strong>Figure 19 (ResNet FT Curves):</strong> Figure 19 demonstrates optimal loss convergence achieved through low-learning-rate fine-tuning, allowing deep layers to adapt without destroying ImageNet features.</span>
                                     </div>
                                 </div>
                                 <div class="figure-box">
                                     <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/09_resnet_finetuning_confusion_matrix.png" alt="ResNet FT Confusion Matrix">
                                     <div class="figure-caption">
                                         <i class="fas fa-trophy"></i>
-                                        <span><strong>Figure 21 (ResNet FT Confusion Matrix):</strong> Figure 21 displays the peak 75.0% multi-class confusion matrix, confirming improved discrimination on complex micro-fracture glass defects.</span>
+                                        <span><strong>Figure 20 (ResNet FT Confusion Matrix):</strong> Figure 20 displays the peak 75.0% multi-class confusion matrix, confirming improved discrimination on complex micro-fracture glass defects.</span>
                                     </div>
                                 </div>
                             </div>
@@ -1436,7 +1427,7 @@
                                 <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/11_resnet_finetuning_test_predictions.png" alt="ResNet FT Predictions">
                                 <div class="figure-caption">
                                     <i class="fas fa-magic"></i>
-                                    <span><strong>Figure 22 (ResNet FT Final Predictions):</strong> Figure 22 illustrates final test set prediction grids, demonstrating accurate multi-class anomaly identification on test bottles.</span>
+                                    <span><strong>Figure 21 (ResNet FT Final Predictions):</strong> Figure 21 illustrates final test set prediction grids, demonstrating accurate multi-class anomaly identification on test bottles.</span>
                                 </div>
                             </div>
                         </div>
@@ -1537,7 +1528,7 @@
                         <img loading="lazy" decoding="async" src="../images/defect-detection/multi-class/12_gradcam_heatmaps_iou_overlay.png" alt="Grad-CAM Heatmaps & IoU Overlay">
                         <div class="figure-caption" style="background: rgba(0, 255, 157, 0.08);">
                             <i class="fas fa-star" style="color: var(--primary);"></i>
-                            <span><strong>Figure 23 (Grad-CAM Saliency & IoU Spatial Overlay):</strong> Figure 23 showcases Grad-CAM activation heatmaps overlaid with green Ground Truth contours and numerical IoU scores, proving that activation hotspots coincide spatially with physical defect locations.</span>
+                            <span><strong>Figure 22 (Grad-CAM Saliency & IoU Spatial Overlay):</strong> Figure 22 showcases Grad-CAM activation heatmaps overlaid with green Ground Truth contours and numerical IoU scores, proving that activation hotspots coincide spatially with physical defect locations.</span>
                         </div>
                     </div>
                 </section>
@@ -1611,7 +1602,7 @@
                         </h3>
                         <div class="outcomes-grid">
                             <div class="outcome-item"><i class="fas fa-check"></i> 5 Deep Learning pipelines evaluated</div>
-                            <div class="outcome-item"><i class="fas fa-check"></i> 23 experimental figures produced</div>
+                            <div class="outcome-item"><i class="fas fa-check"></i> 22 experimental figures produced</div>
                             <div class="outcome-item"><i class="fas fa-check"></i> 100.0% Binary Detection Accuracy</div>
                             <div class="outcome-item"><i class="fas fa-check"></i> 75.0% Multi-Class Anomaly Accuracy</div>
                             <div class="outcome-item"><i class="fas fa-check"></i> Grad-CAM Explainability integrated</div>
@@ -1639,7 +1630,7 @@
                         </a>
                         <a href="#gallery-section" style="text-decoration: none;">
                             <div class="decision-card">
-                                <h3><i class="fas fa-images"></i> 23 Visual Artifacts</h3>
+                                <h3><i class="fas fa-images"></i> 22 Visual Artifacts</h3>
                                 <p>Browse the complete gallery of experimental figures, confusion matrices, loss curves, and Grad-CAM overlays.</p>
                             </div>
                         </a>
@@ -1648,14 +1639,14 @@
 
                 <!-- 18. COMPLETE GALLERY SHOWCASE -->
                 <section id="gallery-section" class="section-block" data-aos="fade-up">
-                    <h2><i class="fas fa-images"></i> Complete Experimentation Gallery (23 Visual Artifacts)</h2>
+                    <h2><i class="fas fa-images"></i> Complete Experimentation Gallery (22 Visual Artifacts)</h2>
                     <p class="lead-text" style="margin-bottom: 2rem;">
                         Explore the complete collection of high-resolution experimental charts, confusion matrices, batch inspectors, prediction grids, and Grad-CAM spatial explainability overlays across binary and multi-class pipelines.
                     </p>
 
                     <!-- GALLERY PART 1: BINARY CLASSIFICATION PIPELINE -->
                     <h3 style="color: var(--text-primary); font-size: 1.2rem; margin-bottom: 1.25rem;">
-                        <i class="fas fa-check-double" style="color: var(--primary);"></i> Binary Anomaly Classification Gallery (11 Artifacts)
+                        <i class="fas fa-check-double" style="color: var(--primary);"></i> Binary Anomaly Classification Gallery (10 Artifacts)
                     </h3>
                     <div class="gallery-container" style="margin-bottom: 3rem;">
                         <div class="gallery-item">
@@ -1697,10 +1688,6 @@
                         <div class="gallery-item">
                             <img loading="lazy" decoding="async" src="../images/defect-detection/binary/Metrics Comparison (Accuracy).png" alt="Metrics Comparison">
                             <div class="gallery-item-title"><i class="fas fa-balance-scale"></i> Accuracy Comparison Bar Chart</div>
-                        </div>
-                        <div class="gallery-item">
-                            <img loading="lazy" decoding="async" src="../images/defect-detection/binary/Model Comparison (Matrix table).png" alt="Model Comparison Matrix Table">
-                            <div class="gallery-item-title"><i class="fas fa-table"></i> Complete Metrics Summary Table</div>
                         </div>
                     </div>
 
