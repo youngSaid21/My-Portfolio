@@ -304,41 +304,94 @@
         /* Objectives Grid */
         .objectives-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.25rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
             margin-top: 1.5rem;
         }
 
         .obj-card {
-            background: rgba(255, 255, 255, 0.02);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(10, 10, 10, 0.7) 100%);
             border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
             position: relative;
-            transition: var(--transition);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .obj-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary) 0%, transparent 100%);
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
         }
 
         .obj-card:hover {
             border-color: var(--primary);
-            background: rgba(0, 255, 157, 0.02);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.12);
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.05) 0%, rgba(10, 10, 10, 0.85) 100%);
+        }
+
+        .obj-card:hover::before {
+            opacity: 1;
+        }
+
+        .obj-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .obj-card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-md);
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid rgba(0, 255, 157, 0.25);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.1);
         }
 
         .obj-card-num {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            color: var(--primary-dim);
-            position: absolute;
-            top: 1rem;
-            right: 1.25rem;
-            line-height: 1;
+            color: rgba(255, 255, 255, 0.2);
+            font-family: monospace;
+            letter-spacing: -0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .obj-card:hover .obj-card-num {
+            color: var(--primary);
+        }
+
+        .obj-card h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.01em;
         }
 
         .obj-card p {
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             color: var(--text-secondary);
             line-height: 1.6;
             margin: 0;
-            padding-right: 1.5rem;
         }
 
         /* Architecture Visual Pipeline */
@@ -708,19 +761,35 @@
                     <h3 style="color: var(--text-primary); margin-top: 2rem; font-size: 1.2rem;">Core Objectives</h3>
                     <div class="objectives-grid">
                         <div class="obj-card">
-                            <div class="obj-card-num">01</div>
+                            <div class="obj-card-header">
+                                <div class="obj-card-icon"><i class="fas fa-brain"></i></div>
+                                <span class="obj-card-num">01</span>
+                            </div>
+                            <h4>Supervised ML Modeling</h4>
                             <p>Develop a reliable credit scoring model using structured financial data and supervised machine learning.</p>
                         </div>
                         <div class="obj-card">
-                            <div class="obj-card-num">02</div>
+                            <div class="obj-card-header">
+                                <div class="obj-card-icon"><i class="fas fa-server"></i></div>
+                                <span class="obj-card-num">02</span>
+                            </div>
+                            <h4>Production REST API</h4>
                             <p>Build a production-ready API capable of serving predictions through a simple REST interface.</p>
                         </div>
                         <div class="obj-card">
-                            <div class="obj-card-num">03</div>
+                            <div class="obj-card-header">
+                                <div class="obj-card-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                                <span class="obj-card-num">03</span>
+                            </div>
+                            <h4>CI/CD & Cloud Deployment</h4>
                             <p>Automate the application lifecycle by integrating Docker, GitHub Actions, and AWS EC2 for continuous deployment.</p>
                         </div>
                         <div class="obj-card">
-                            <div class="obj-card-num">04</div>
+                            <div class="obj-card-header">
+                                <div class="obj-card-icon"><i class="fas fa-infinity"></i></div>
+                                <span class="obj-card-num">04</span>
+                            </div>
+                            <h4>DevOps & MLOps Standards</h4>
                             <p>Apply DevOps and MLOps principles to create a reproducible workflow, from model training to cloud deployment.</p>
                         </div>
                     </div>

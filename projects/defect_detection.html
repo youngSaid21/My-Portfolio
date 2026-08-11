@@ -740,7 +740,7 @@
                             <p>Engineered an end-to-end PyTorch data pipeline with spatial augmentations, normalization, and class-weighted loss handling.</p>
                         </div>
                         <div class="decision-card">
-                            <h3><i class="fas fa-flask"></i> Scientific Benchmarking</h3>
+                            <h3><i class="fas fa-flask"></i> Model Benchmarking</h3>
                             <p>Designed and trained 5 distinct modeling workflows comparing custom CNN baselines against ResNet50 Transfer Learning.</p>
                         </div>
                         <div class="decision-card">
@@ -762,7 +762,7 @@
                     </div>
 
                     <!-- TECHNICAL SKILLS BADGES -->
-                    <h3 style="color: var(--text-primary); margin-top: 2rem; font-size: 1.15rem;">Technical Skills Demonstrated</h3>
+                    <h3 style="color: var(--text-primary); margin-top: 2rem; font-size: 1.15rem;">Technical Skills</h3>
                     <div class="skills-badge-grid">
                         <span class="skill-pill"><i class="fas fa-fire"></i> PyTorch 2.x</span>
                         <span class="skill-pill"><i class="fas fa-camera"></i> Computer Vision</span>
@@ -770,12 +770,13 @@
                         <span class="skill-pill"><i class="fas fa-network-wired"></i> CNN Architecture Design</span>
                         <span class="skill-pill"><i class="fas fa-share-alt"></i> Transfer Learning</span>
                         <span class="skill-pill"><i class="fas fa-cubes"></i> ResNet50 Backbone</span>
-                        <span class="skill-pill"><i class="fas fa-sliders-h"></i> Full Fine-Tuning</span>
+                        <span class="skill-pill"><i class="fas fa-cubes"></i> ResNet18 Backbone</span>
+                        <span class="skill-pill"><i class="fas fa-sliders-h"></i> Partial & Full Fine-Tuning</span>
                         <span class="skill-pill"><i class="fas fa-object-group"></i> PyTorch DataLoaders</span>
                         <span class="skill-pill"><i class="fas fa-balance-scale"></i> Class Imbalance Loss</span>
                         <span class="skill-pill"><i class="fas fa-eye"></i> Grad-CAM (XAI)</span>
                         <span class="skill-pill"><i class="fas fa-ruler-combined"></i> IoU Spatial Metrics</span>
-                        <span class="skill-pill"><i class="fas fa-vial"></i> Scientific Benchmarking</span>
+                        <span class="skill-pill"><i class="fas fa-vial"></i> Model Benchmarking</span>
                     </div>
                 </section>
 
@@ -850,7 +851,7 @@
                     <div style="margin: 1rem 0;">
                         <ul class="education-bullets">
                             <li><strong>Spatial Normalization:</strong> Input images are resized to <code>224 × 224</code> pixels for spatial compatibility with standard CNN backbones.</li>
-                            <li><strong>Data Augmentations:</strong> Random horizontal flipping and mild rotations ($\pm 10^\circ$) artificially increase geometric sample variance.</li>
+                            <li><strong>Data Augmentations:</strong> Random horizontal flipping and mild rotations (&plusmn;10&deg;) artificially increase geometric sample variance.</li>
                             <li><strong>Standardization:</strong> Channel normalization using ImageNet mean (<code>[0.485, 0.456, 0.406]</code>) and standard deviation (<code>[0.229, 0.224, 0.225]</code>) vectors.</li>
                         </ul>
                     </div>
@@ -930,16 +931,16 @@
                     </div>
                 </section>
 
-                <!-- 8. MODEL ARCHITECTURES & TRAINING CONFIGURATION -->
+                <!-- 7. MODEL ARCHITECTURES & TRAINING CONFIGURATION -->
                 <section id="model-architectures" class="section-block" data-aos="fade-up">
                     <h2><i class="fas fa-microchip"></i> Model Architectures & Training Configuration</h2>
                     <p class="lead-text">
-                        To evaluate the impact of network depth and parameter initialization, two distinct architectural paradigms were implemented.
+                        To evaluate the impact of network depth, parameter initialization, and transfer learning strategies under data scarcity, two primary network families were implemented: a custom 3-block CNN baseline and residual networks (ResNet50 for binary, ResNet18 for multi-class).
                     </p>
 
-                    <h3 style="color: var(--text-primary); margin-top: 1.5rem; font-size: 1.2rem;">Custom CNN Architecture</h3>
+                    <h3 style="color: var(--text-primary); margin-top: 1.5rem; font-size: 1.2rem;">Custom CNN Architecture (SimpleCNN)</h3>
                     <p class="lead-text">
-                        A 3-block Convolutional Neural Network designed to establish a lightweight baseline. Input tensor dimensions of <code>3 × 224 × 224</code> pass sequentially through convolutional layers, batch normalizations, max pooling, and dense classification layers.
+                        A lightweight 3-block Convolutional Neural Network built from scratch in PyTorch. Input tensors of shape <code>3 × 224 × 224</code> pass sequentially through 3 Conv-ReLU-MaxPool blocks. Spatial dimensions decrease from <code>224×224</code> down to <code>28×28</code> over 128 channels, producing a flattened vector of <code>100,352</code> features fed into dense linear layers.
                     </p>
 
                     <!-- Custom CNN Diagram -->
@@ -950,42 +951,42 @@
                         </div>
                         <i class="fas fa-chevron-right diagram-arrow"></i>
                         <div class="diagram-box">
-                            <div class="box-title">Conv32</div>
-                            <div class="box-sub">3×3 Conv, ReLU</div>
+                            <div class="box-title">Conv1</div>
+                            <div class="box-sub">3→32, 3×3 Conv, ReLU, Pool</div>
                         </div>
                         <i class="fas fa-chevron-right diagram-arrow"></i>
                         <div class="diagram-box">
-                            <div class="box-title">Conv64</div>
-                            <div class="box-sub">3×3 Conv, MaxPool</div>
+                            <div class="box-title">Conv2</div>
+                            <div class="box-sub">32→64, 3×3 Conv, ReLU, Pool</div>
                         </div>
                         <i class="fas fa-chevron-right diagram-arrow"></i>
                         <div class="diagram-box">
-                            <div class="box-title">Conv128</div>
-                            <div class="box-sub">3×3 Conv, MaxPool</div>
+                            <div class="box-title">Conv3</div>
+                            <div class="box-sub">64→128, 3×3 Conv, ReLU, Pool</div>
                         </div>
                         <i class="fas fa-chevron-right diagram-arrow"></i>
                         <div class="diagram-box">
                             <div class="box-title">Flatten</div>
-                            <div class="box-sub">Tensor Unroll</div>
+                            <div class="box-sub">128×28×28 = 100,352</div>
                         </div>
                         <i class="fas fa-chevron-right diagram-arrow"></i>
                         <div class="diagram-box">
-                            <div class="box-title">FC128</div>
-                            <div class="box-sub">Linear, Dropout</div>
+                            <div class="box-title">FC1</div>
+                            <div class="box-sub">Linear(100k → 128), ReLU</div>
                         </div>
                         <i class="fas fa-chevron-right diagram-arrow"></i>
                         <div class="diagram-box" style="border-color: var(--primary);">
-                            <div class="box-title" style="color: var(--primary);">Output</div>
-                            <div class="box-sub">C Classes</div>
+                            <div class="box-title" style="color: var(--primary);">FC2 Output</div>
+                            <div class="box-sub">Linear(128 → C Classes)</div>
                         </div>
                     </div>
 
-                    <h3 style="color: var(--text-primary); margin-top: 2rem; font-size: 1.2rem;">ResNet50 Architecture</h3>
+                    <h3 style="color: var(--text-primary); margin-top: 2rem; font-size: 1.2rem;">Residual Network Architectures (ResNet50 & ResNet18)</h3>
                     <p class="lead-text">
-                        A 50-layer Residual Network pre-trained on ImageNet-1k. Deep residual blocks utilize skip connections to prevent vanishing gradients during backpropagation, connected to a Global Average Pooling (GAP) layer and a custom Linear FC head mapped to target output classes $C$.
+                        Transfer learning was conducted using pre-trained residual backbones from <code>torchvision.models</code>. For <strong>Binary Detection</strong>, a 50-layer <code>ResNet50</code> (ImageNet-1K V2) backbone was adapted by replacing the final linear layer (<code>fc: 2048 → 2</code>). For <strong>Multi-Class Anomaly Classification</strong>, a 18-layer <code>ResNet18</code> (ImageNet DEFAULT) was used (<code>fc: 512 → 3</code>).
                     </p>
 
-                    <!-- ResNet50 Diagram -->
+                    <!-- ResNet Diagram -->
                     <div class="diagram-flow">
                         <div class="diagram-box">
                             <div class="box-title">Input</div>
@@ -993,107 +994,107 @@
                         </div>
                         <i class="fas fa-chevron-right diagram-arrow"></i>
                         <div class="diagram-box" style="min-width: 160px;">
-                            <div class="box-title">ResNet50 Backbone</div>
-                            <div class="box-sub">50 Residual Layers (Frozen/Unfrozen)</div>
+                            <div class="box-title">Residual Backbone</div>
+                            <div class="box-sub">ResNet50 (Binary) / ResNet18 (Multi-Class)</div>
                         </div>
                         <i class="fas fa-chevron-right diagram-arrow"></i>
                         <div class="diagram-box">
-                            <div class="box-title">GAP Layer</div>
-                            <div class="box-sub">Global Avg Pooling</div>
+                            <div class="box-title">Layer State</div>
+                            <div class="box-sub">Frozen (FE) vs Layer4 Unfrozen (Partial FT)</div>
                         </div>
                         <i class="fas fa-chevron-right diagram-arrow"></i>
                         <div class="diagram-box">
-                            <div class="box-title">FC Layer</div>
-                            <div class="box-sub">Custom Linear Classifier</div>
+                            <div class="box-title">AvgPool</div>
+                            <div class="box-sub">Adaptive Avg Pooling (1×1)</div>
                         </div>
                         <i class="fas fa-chevron-right diagram-arrow"></i>
                         <div class="diagram-box" style="border-color: var(--primary);">
-                            <div class="box-title" style="color: var(--primary);">Output</div>
-                            <div class="box-sub">C Classes</div>
+                            <div class="box-title" style="color: var(--primary);">FC Classifier</div>
+                            <div class="box-sub">Linear(2048→2 or 512→3)</div>
                         </div>
                     </div>
 
-                    <h3 style="color: var(--text-primary); margin-top: 1.5rem; font-size: 1.1rem;">Feature Extraction vs Fine-Tuning</h3>
+                    <h3 style="color: var(--text-primary); margin-top: 1.5rem; font-size: 1.1rem;">Feature Extraction vs Partial Fine-Tuning Strategies</h3>
                     <div class="custom-table-wrapper">
                         <table class="custom-table">
                             <thead>
                                 <tr>
-                                    <th>Strategy</th>
+                                    <th>Transfer Learning Strategy</th>
                                     <th>Backbone State</th>
                                     <th>Trainable Parameters</th>
-                                    <th>Learning Rate</th>
-                                    <th>Primary Scope</th>
+                                    <th>Optimizer & Learning Rate (LR)</th>
+                                    <th>Primary Scope & Rationale</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><strong>Feature Extraction</strong></td>
-                                    <td>Frozen (ImageNet weights)</td>
-                                    <td>Only the final FC classifier head is trainable</td>
-                                    <td><code>1e-3</code> (Adam)</td>
-                                    <td>Preserves generic visual representations; prevents overfitting on small datasets.</td>
+                                    <td><strong>Feature Extraction (ResNet18 / ResNet50)</strong></td>
+                                    <td>Frozen (All backbone layers <code>requires_grad = False</code>)</td>
+                                    <td>Only final classifier head <code>fc</code></td>
+                                    <td><code>1e-3</code> (Adam on <code>fc.parameters()</code>)</td>
+                                    <td>Preserves low & high-level ImageNet representations; prevents catastrophic overfitting on small datasets.</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Full Fine-Tuning</strong></td>
-                                    <td>Unfrozen (All 50 layers)</td>
-                                    <td>All 50 residual layers are trainable</td>
-                                    <td><code>1e-4</code> (Adam)</td>
-                                    <td>Adapts deep convolutional filters to domain-specific glass surface anomalies.</td>
+                                    <td><strong>Partial Fine-Tuning (ResNet18 Multi-Class)</strong></td>
+                                    <td>Partially Unfrozen (<code>layer4</code> + <code>fc</code> set to <code>requires_grad = True</code>)</td>
+                                    <td>High-level feature block (<code>layer4</code>) + classifier head <code>fc</code></td>
+                                    <td>Differentiated Adam:<br>• <code>layer4</code>: <code>1e-5</code> (preserves spatial features)<br>• <code>fc</code>: <code>1e-4</code> (adapts 3-class head)</td>
+                                    <td>Allows deep convolutional filters in <code>layer4</code> to adapt specifically to glass surface anomaly textures without destroying low-level edge features.</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <h3 style="color: var(--text-primary); margin-top: 2rem; font-size: 1.2rem;">Hyperparameter Training Configuration</h3>
+                    <h3 style="color: var(--text-primary); margin-top: 2rem; font-size: 1.2rem;">Hyperparameter & Training Configuration Matrix</h3>
                     <div class="custom-table-wrapper">
                         <table class="custom-table">
                             <thead>
                                 <tr>
-                                    <th>Hyperparameter</th>
-                                    <th>Binary Classification Task</th>
-                                    <th>Multi-Class Classification Task</th>
+                                    <th>Hyperparameter / Component</th>
+                                    <th>Track 1: Binary Classification (Good vs Bad)</th>
+                                    <th>Track 2: Multi-Class Classification (3 Classes)</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><strong>Input Dimension</strong></td>
-                                    <td><code>224 × 224 × 3</code></td>
-                                    <td><code>224 × 224 × 3</code></td>
+                                    <td><strong>Input Tensor Size</strong></td>
+                                    <td><code>3 × 224 × 224</code></td>
+                                    <td><code>3 × 224 × 324</code> (Resized to <code>224 × 224 × 3</code>)</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Batch Size</strong></td>
-                                    <td>16</td>
-                                    <td>8</td>
+                                    <td><strong>Evaluated Models</strong></td>
+                                    <td>SimpleCNN • ResNet50 Transfer Learning</td>
+                                    <td>SimpleCNN • ResNet18 FE • ResNet18 Partial FT</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Optimizer</strong></td>
-                                    <td>Adam ($\beta_1=0.9, \beta_2=0.999$)</td>
-                                    <td>Adam ($\beta_1=0.9, \beta_2=0.999$)</td>
+                                    <td>Adam (<code>lr=1e-3</code>)</td>
+                                    <td>Adam (CNN: <code>1e-4</code> | ResNet FE: <code>1e-3</code> | ResNet FT: <code>1e-5</code> & <code>1e-4</code>)</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Learning Rate</strong></td>
-                                    <td><code>1e-3</code> (CNN & ResNet FE)</td>
-                                    <td><code>1e-3</code> (FE) / <code>1e-4</code> (Fine-Tuning)</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Epochs</strong></td>
-                                    <td>20 (CNN) / 15 (ResNet)</td>
-                                    <td>20 (CNN) / 25 (ResNet)</td>
+                                    <td><strong>Epoch Count</strong></td>
+                                    <td>SimpleCNN: 50 epochs | ResNet50: 20 epochs</td>
+                                    <td>SimpleCNN: 30 epochs | ResNet18 FE: 30 | ResNet18 FT: 30</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Loss Function</strong></td>
-                                    <td><code>Weighted CrossEntropyLoss</code> (weights <code>[1.0, 0.2131]</code>)</td>
-                                    <td><code>CrossEntropyLoss</code></td>
+                                    <td>SimpleCNN: <code>Weighted CrossEntropyLoss</code> (weights <code>[5.6923, 1.2131]</code>)<br>ResNet50: Standard <code>CrossEntropyLoss</code></td>
+                                    <td>Standard <code>CrossEntropyLoss</code> (unweighted)</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Pretrained Weights</strong></td>
-                                    <td><code>ResNet50_Weights.DEFAULT</code> (ImageNet)</td>
-                                    <td><code>ResNet50_Weights.DEFAULT</code> (ImageNet)</td>
+                                    <td><strong>Class Imbalance Handling</strong></td>
+                                    <td>Inverse class frequency weights (39 Bad vs 183 Good)</td>
+                                    <td>Equal cross-entropy penalty across 3 anomaly classes</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Hardware & Framework</strong></td>
-                                    <td>NVIDIA T4 GPU • PyTorch 2.x</td>
-                                    <td>NVIDIA T4 GPU • PyTorch 2.x</td>
+                                    <td><strong>Pretrained Backbone</strong></td>
+                                    <td><code>ResNet50_Weights.IMAGENET1K_V2</code></td>
+                                    <td><code>ResNet18_Weights.DEFAULT</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Hardware Environment</strong></td>
+                                    <td>NVIDIA T4 GPU • PyTorch 2.x • CUDA 12.x</td>
+                                    <td>NVIDIA T4 GPU • PyTorch 2.x • CUDA 12.x</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1125,8 +1126,8 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Track 2: Multi-Class Detection</strong></td>
-                                    <td><code>broken</code>, <code>contamination</code>, <code>defect</code> (3 classes)</td>
-                                    <td>Custom CNN • ResNet50 FE • ResNet50 Fine-Tuning</td>
+                                    <td><code>broken_large</code>, <code>broken_small</code>, <code>contamination</code> (3 classes)</td>
+                                    <td>Custom CNN • ResNet18 FE • ResNet18 Partial FT</td>
                                     <td>Benchmark multi-class accuracy under severe sample scarcity (39 images).</td>
                                 </tr>
                             </tbody>
@@ -1154,8 +1155,8 @@
                                 </tr>
                                 <tr style="background: rgba(0, 255, 157, 0.05);">
                                     <td><strong>Multi-Class Anomaly</strong></td>
-                                    <td>ResNet50</td>
-                                    <td>Full Fine-Tuning</td>
+                                    <td>ResNet18</td>
+                                    <td>Partial Fine-Tuning (layer4 + fc)</td>
                                     <td><span class="tag-highlight">75.0% Accuracy (0.74 Macro F1)</span></td>
                                 </tr>
                                 <tr>
@@ -1196,19 +1197,19 @@
                                 <tr>
                                     <td><strong>Data Scarcity</strong></td>
                                     <td>Only 39 multi-class training images available across 3 defect categories.</td>
-                                    <td>Transfer Learning with pre-trained ResNet50 + spatial augmentations.</td>
-                                    <td>Accuracy increased from 33.3% (CNN) to 75.0% (ResNet FT).</td>
+                                    <td>Transfer Learning with pre-trained ResNet18 + spatial augmentations.</td>
+                                    <td>Accuracy increased from 33.3% (CNN) to 75.0% (ResNet18 FT).</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Class Imbalance</strong></td>
                                     <td>229 <code>Good</code> vs 63 <code>Bad</code> samples causing model bias toward healthy approvals.</td>
-                                    <td>Implemented <code>Weighted CrossEntropyLoss</code> (weights <code>[1.0, 0.2131]</code>).</td>
+                                    <td>Implemented <code>Weighted CrossEntropyLoss</code> (weights <code>[5.6923, 1.2131]</code>).</td>
                                     <td>100% Recall on defective parts (0 false safe approvals).</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Overfitting Risk</strong></td>
                                     <td>Deep CNNs memorize small sample sets without learning generalized features.</td>
-                                    <td>Backbone freezing + low learning rate ($10^{-4}$) during fine-tuning.</td>
+                                    <td>Backbone freezing (layers 1-3) + low learning rate (10<sup>-5</sup> for layer4, 10<sup>-4</sup> for fc) during partial fine-tuning.</td>
                                     <td>Stable validation loss decay without divergence.</td>
                                 </tr>
                                 <tr>
@@ -1222,9 +1223,9 @@
                     </div>
                 </section>
 
-                <!-- 11. EXPERIMENTS & SCIENTIFIC PROGRESSION -->
+                <!-- 11. EXPERIMENTS & MODEL PROGRESSION -->
                 <section id="experiments" class="section-block" data-aos="fade-up">
-                    <h2><i class="fas fa-flask"></i> Experiments & Scientific Progression</h2>
+                    <h2><i class="fas fa-flask"></i> Experiments & Model Progression</h2>
                     <p class="lead-text">
                         Model evaluation was conducted progressively across both inspection tracks to measure incremental gains from baseline architectures to fine-tuned residual networks.
                     </p>
@@ -1370,9 +1371,9 @@
 
                         <!-- Stage 2: ResNet FE -->
                         <div style="margin-top: 2rem; background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
-                            <h4 style="color: #ffaa00; font-size: 1.1rem; margin-bottom: 0.5rem;">Phase 2 — ResNet50 Feature Extraction</h4>
+                            <h4 style="color: #ffaa00; font-size: 1.1rem; margin-bottom: 0.5rem;">Phase 2 — ResNet18 Feature Extraction</h4>
                             <p class="lead-text">
-                                <strong>Hypothesis & Gains:</strong> Freezing the ImageNet backbone and training only the linear classifier head for 30 epochs using Adam (<code>1e-3</code>). Accuracy doubled from 33.3% to <strong>66.7%</strong> (+33.4% boost), demonstrating the necessity of pre-trained feature representations on constrained datasets.
+                                <strong>Hypothesis & Gains:</strong> Freezing the ImageNet backbone (<code>requires_grad = False</code>) and training only the linear classifier head (<code>fc: 512 → 3</code>) for 30 epochs using Adam (<code>1e-3</code>). Accuracy doubled from 33.3% to <strong>66.7%</strong> (+33.4% boost), demonstrating the necessity of pre-trained feature representations on constrained datasets.
                             </p>
 
                             <div class="figure-grid-dual">
@@ -1402,9 +1403,9 @@
 
                         <!-- Stage 3: ResNet FT -->
                         <div style="margin-top: 2rem; background: rgba(0, 255, 157, 0.02); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid rgba(0, 255, 157, 0.2);">
-                            <h4 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 0.5rem;">Phase 3 — ResNet50 Full Fine-Tuning</h4>
+                            <h4 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 0.5rem;">Phase 3 — ResNet18 Partial Fine-Tuning</h4>
                             <p class="lead-text">
-                                <strong>Hypothesis & Optimal Result:</strong> Unfreezing all 50 layers and fine-tuning end-to-end for 30 epochs at a low learning rate ($10^{-4}$). This enabled deep convolutional kernels to adapt specifically to glass surface micro-anomalies, achieving an optimal Multi-Class <strong>Accuracy of 75.0%</strong> (Macro F1 = 0.74), representing an +8.3% increase over Feature Extraction.
+                                <strong>Hypothesis & Optimal Result:</strong> Unfreezing <code>layer4</code> while keeping earlier layers frozen, fine-tuning for 30 epochs with differential learning rates (<code>1e-5</code> for <code>layer4</code>, <code>1e-4</code> for <code>fc</code> head). This enabled deep convolutional kernels in <code>layer4</code> to adapt specifically to glass surface micro-anomalies while preserving low-level spatial features, achieving an optimal Multi-Class <strong>Accuracy of 75.0%</strong> (Macro F1 = 0.74), representing an +8.3% increase over Feature Extraction.
                             </p>
 
                             <div class="figure-grid-dual">
@@ -1496,15 +1497,15 @@
                                     <td>Severe overfitting; random chance baseline.</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>ResNet50 FE</strong></td>
-                                    <td>Feature Extraction</td>
+                                    <td><strong>ResNet18 FE</strong></td>
+                                    <td>Feature Extraction (fc head)</td>
                                     <td>66.7%</td>
                                     <td>0.67</td>
                                     <td>+33.4% gain; frozen ImageNet feature representations.</td>
                                 </tr>
                                 <tr style="background: rgba(0, 255, 157, 0.05);">
-                                    <td><strong>ResNet50 FT (Final)</strong></td>
-                                    <td>Full Fine-Tuning</td>
+                                    <td><strong>ResNet18 FT (Final)</strong></td>
+                                    <td>Partial Fine-Tuning (layer4 + fc)</td>
                                     <td><span class="tag-highlight">75.0%</span></td>
                                     <td><span class="tag-highlight">0.74</span></td>
                                     <td><span class="tag-highlight">Optimal configuration; adapted deep spatial filters (+8.3%).</span></td>
@@ -1542,16 +1543,16 @@
 
                     <div class="decision-grid">
                         <div class="decision-card">
-                            <h3><i class="fas fa-network-wired"></i> Why ResNet50?</h3>
-                            <p>Residual connections prevent vanishing gradients during deep feature extraction, providing pre-trained ImageNet representations compatible with Grad-CAM gradient backpropagation.</p>
+                            <h3><i class="fas fa-network-wired"></i> Why Residual Architectures?</h3>
+                            <p>Residual connections (ResNet50 for binary, ResNet18 for multi-class) prevent vanishing gradients during deep feature extraction, providing pre-trained ImageNet representations compatible with Grad-CAM gradient backpropagation.</p>
                         </div>
                         <div class="decision-card">
                             <h3><i class="fas fa-lock"></i> Why Transfer Learning?</h3>
                             <p>Training millions of parameters from scratch on 39 images causes immediate overfitting. Freezing early convolutional blocks preserves generic edge and texture filters.</p>
                         </div>
                         <div class="decision-card">
-                            <h3><i class="fas fa-sliders-h"></i> Why Full Fine-Tuning?</h3>
-                            <p>Generic ImageNet representations require domain adaptation for subtle glass cracks. Unfreezing deep layers with a low learning rate ($10^{-4}$) yielded an +8.3% accuracy gain.</p>
+                            <h3><i class="fas fa-sliders-h"></i> Why Partial Fine-Tuning?</h3>
+                            <p>Generic ImageNet representations require domain adaptation for subtle glass cracks. Unfreezing <code>layer4</code> with differentiated learning rates (10<sup>-5</sup> for <code>layer4</code>, 10<sup>-4</sup> for <code>fc</code>) yielded an +8.3% accuracy gain without overfitting.</p>
                         </div>
                         <div class="decision-card">
                             <h3><i class="fas fa-eye"></i> Why Grad-CAM?</h3>
@@ -1563,7 +1564,7 @@
                         </div>
                         <div class="decision-card">
                             <h3><i class="fas fa-balance-scale"></i> Why Weighted CrossEntropy?</h3>
-                            <p>Mitigates the 229 Good vs 63 Bad sample imbalance by weighting defective classes (weights <code>[1.0, 0.2131]</code>), achieving 100% Recall on anomalies.</p>
+                            <p>Mitigates the 229 Good vs 63 Bad sample imbalance by weighting defective classes (weights <code>[5.6923, 1.2131]</code>), achieving 100% Recall on anomalies.</p>
                         </div>
                     </div>
                 </section>
