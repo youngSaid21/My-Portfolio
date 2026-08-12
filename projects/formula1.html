@@ -542,9 +542,6 @@
                 <a href="https://github.com/youngSaid21/Analyse-de-donnees-Formula-One" class="btn btn-secondary" target="_blank" rel="noopener">
                     <i class="fab fa-github"></i> GitHub Repository
                 </a>
-                <a href="#video-demo" class="btn btn-secondary">
-                    <i class="fas fa-play-circle"></i> Video Showcase
-                </a>
             </div>
         </header>
 
@@ -557,13 +554,12 @@
                 <ul class="toc-list">
                     <li><a href="#highlights" class="toc-link">01. Highlights & Exec Summary</a></li>
                     <li><a href="#contributions" class="toc-link">02. Contributions & Stack</a></li>
-                    <li><a href="#video-demo" class="toc-link">03. Video Demonstration</a></li>
-                    <li><a href="#problem-data" class="toc-link">04. Problem & Data Sources</a></li>
-                    <li><a href="#pipeline" class="toc-link">05. Data Processing Pipeline</a></li>
-                    <li><a href="#architecture" class="toc-link">06. System Architecture</a></li>
-                    <li><a href="#insights" class="toc-link">07. Key Analytical Insights</a></li>
-                    <li><a href="#dashboard" class="toc-link">08. Dashboard Features</a></li>
-                    <li><a href="#outcomes" class="toc-link">09. Outcomes & Resources</a></li>
+                    <li><a href="#problem-data" class="toc-link">03. Problem & Data Sources</a></li>
+                    <li><a href="#pipeline" class="toc-link">04. Data Processing Pipeline</a></li>
+                    <li><a href="#architecture" class="toc-link">05. System Architecture</a></li>
+                    <li><a href="#insights" class="toc-link">06. Key Analytical Insights</a></li>
+                    <li><a href="#dashboard" class="toc-link">07. Dashboard Features</a></li>
+                    <li><a href="#outcomes" class="toc-link">08. Outcomes & Resources</a></li>
                 </ul>
             </aside>
 
@@ -658,33 +654,7 @@
                     </div>
                 </section>
 
-                <!-- 03. VIDEO DEMONSTRATION -->
-                <section id="video-demo" class="section-block" data-aos="fade-up">
-                    <h2><i class="fas fa-video"></i> Dashboard Video Showcase</h2>
-
-                    <!-- Interactive Video Player Showcase -->
-                    <div class="video-container-box">
-                        <video id="f1-demo-video" controls preload="metadata" poster="../images/dashbord.png" style="width: 100%; display: block; border-radius: var(--radius-lg);">
-                            <source src="../videos/f1-video.mp4" type="video/mp4">
-                            Your browser does not support HTML5 video.
-                        </video>
-                        <div class="figure-caption">
-                            <i class="fas fa-info-circle"></i>
-                            <span><strong>Streamlit Dashboard Demo:</strong> Showcasing Master Overview KPIs, Grand Prix real-time weather monitoring with WindRose dynamics, and Driver wet/dry performance tracking.</span>
-                        </div>
-                    </div>
-
-                    <div style="display: flex; justify-content: center; gap: 0.85rem; flex-wrap: wrap; margin-top: 1.25rem;">
-                        <a href="https://f1-weather-analysis-v1.streamlit.app/" target="_blank" rel="noopener" class="btn btn-primary" style="background: #ff2400; border-color: #ff2400;">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                        <a href="https://github.com/youngSaid21/Analyse-de-donnees-Formula-One" target="_blank" rel="noopener" class="btn btn-secondary">
-                            <i class="fab fa-github"></i> GitHub Repository
-                        </a>
-                    </div>
-                </section>
-
-                <!-- 04. PROBLEM & DATA SOURCES -->
+                <!-- 03. PROBLEM & DATA SOURCES -->
                 <section id="problem-data" class="section-block" data-aos="fade-up">
                     <h2><i class="fas fa-bullseye"></i> Problem Statement & Data Sources</h2>
                     <p class="lead-text">
@@ -719,7 +689,7 @@
                     </div>
                 </section>
 
-                <!-- 05. DATA PROCESSING PIPELINE -->
+                <!-- 04. DATA PROCESSING PIPELINE -->
                 <section id="pipeline" class="section-block" data-aos="fade-up">
                     <h2><i class="fas fa-filter"></i> Data Processing Pipeline</h2>
                     <p class="lead-text">
@@ -819,7 +789,7 @@
                     </div>
                 </section>
 
-                <!-- 07. KEY ANALYTICAL INSIGHTS -->
+                <!-- 06. KEY ANALYTICAL INSIGHTS -->
                 <section id="insights" class="section-block" data-aos="fade-up">
                     <h2><i class="fas fa-lightbulb"></i> Key Analytical Insights (2018 Season Focus)</h2>
                     <p class="lead-text">
@@ -889,7 +859,7 @@
                     </div>
                 </section>
 
-                <!-- 08. DASHBOARD FEATURES -->
+                <!-- 07. DASHBOARD FEATURES -->
                 <section id="dashboard" class="section-block" data-aos="fade-up">
                     <h2><i class="fas fa-desktop"></i> Dashboard Features</h2>
                     <div style="margin-top: 1rem;">
@@ -901,7 +871,7 @@
                     </div>
                 </section>
 
-                <!-- 09. OUTCOMES & RESOURCES -->
+                <!-- 08. OUTCOMES & RESOURCES -->
                 <section id="outcomes" class="section-block" data-aos="fade-up">
                     <h2><i class="fas fa-trophy"></i> Outcomes & Resources</h2>
 
@@ -954,8 +924,6 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="../js/main.js"></script>
     <script>
-        const DEMO_VIDEO_PATH = "../videos/f1-video.mp4";
-
         document.addEventListener('DOMContentLoaded', () => {
             const tocLinks = document.querySelectorAll('.toc-link');
             const sections = document.querySelectorAll('.case-study-content section[id]');
